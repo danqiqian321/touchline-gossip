@@ -1316,14 +1316,22 @@ function tickChat() {
   }
 
   // Ashley only speaks from queue (Claude/API-sourced facts)
-  const queueChance = window._hasLiveGame ? 0.65 : 0.45;
+  const queueChance = window._hasLiveGame ? 0.65 : 0.6;
   if (window._chatQueue.length > 0 && Math.random() < queueChance) {
     line = window._chatQueue.shift();
     _lastWasAshley = (line.name === 'ashley');
   } else if (window._hasLiveOrSoonGame === false) {
-    // No game on: Kayla waiting lines, occasional Ashley 2026 fact
-    if (Math.random() < 0.25) {
-      line = { name: 'ashley', line: ASHLEY_2026_FACTS[Math.floor(Math.random() * ASHLEY_2026_FACTS.length)] };
+    // No game on: mix last game recap, 2026 facts, and Kayla waiting lines
+    const rand = Math.random();
+    if (rand < 0.4 && window._lastGameLines && window._lastGameLines.length > 0) {
+      // Talk about last game
+      const pick = window._lastGameLines[Math.floor(Math.random() * window._lastGameLines.length)];
+      line = { name: 'ashley', line: pick };
+      _lastWasAshley = true;
+    } else if (rand < 0.65) {
+      // General 2026 facts
+      const facts = [...ASHLEY_2026_FACTS, ...ASHLEY_FALLBACK_LINES];
+      line = { name: 'ashley', line: facts[Math.floor(Math.random() * facts.length)] };
       _lastWasAshley = true;
     } else {
       line = { name: 'kayla', line: pickNonRepeating(KAYLA_WAITING_LINES) };
@@ -1461,12 +1469,13 @@ function init() {
               }
             });
           }
-          // Push recap lines into queue
+          // Push recap lines into queue AND store for ongoing ticker
+          window._lastGameLines = [...recapLines];
           recapLines.forEach((line, i) => {
             window._chatQueue.splice(i * 2, 0, { name: 'ashley', line });
           });
         }).catch(() => {
-          // Fallback without scorer details
+          window._lastGameLines = [...recapLines];
           recapLines.forEach((line, i) => {
             window._chatQueue.splice(i * 2, 0, { name: 'ashley', line });
           });
