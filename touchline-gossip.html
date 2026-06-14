@@ -1045,6 +1045,54 @@ const ASHLEY_FALLBACK_LINES = [
   "spain won the world cup once back in 2010"
 ];
 
+// Ashley: spicy WC trivia and drama facts
+const ASHLEY_TRIVIA_LINES = [
+  "italy didn't even qualify for the 2022 world cup btw",
+  "the fastest world cup goal ever was scored in 11 seconds",
+  "neymar has cried at every world cup he's been to",
+  "ronaldo and messi have never won a world cup together obviously",
+  "the 2022 final went to penalties after 3-3 in extra time",
+  "france scored an own goal in the 2022 final",
+  "argentina lost their first game in 2022 before winning it all",
+  "the usa hasn't won a world cup since 1930 and that was the first one",
+  "only 8 countries have ever won a world cup",
+  "host countries almost always do better than expected"
+];
+
+// Ashley: predictions and hot takes for next game
+const ASHLEY_PREDICTION_LINES = [
+  "calling it now, next game goes to extra time",
+  "i have a feeling we're getting a red card next game",
+  "whoever scores first next game wins, mark my words",
+  "the goalkeeper next game is going to be the story",
+  "i'm predicting a late goal drama in the next one",
+  "next match feels like a draw to me honestly"
+];
+
+// Kayla/Ashley debate pairs about players — queued together for back-and-forth
+const PLAYER_DEBATE_PAIRS = [
+  [
+    { name: 'kayla', line: "okay we need to rank the players by looks, i'll start" },
+    { name: 'ashley', line: "kayla i cannot believe you right now" }
+  ],
+  [
+    { name: 'kayla', line: "the goalkeeper from last game was doing the most and i appreciated it" },
+    { name: 'ashley', line: "he also let in two goals but sure" }
+  ],
+  [
+    { name: 'kayla', line: "someone's captain energy is very much my type" },
+    { name: 'ashley', line: "kayla he's married" }
+  ],
+  [
+    { name: 'kayla', line: "the celebrations are the best part honestly" },
+    { name: 'ashley', line: "the goals that cause them might matter slightly more" }
+  ],
+  [
+    { name: 'kayla', line: "i'm rooting for whoever has the best kit ngl" },
+    { name: 'ashley', line: "this is not how football works" }
+  ]
+];
+
 // Ashley: real 2026 World Cup facts to seed chat history on page load
 const ASHLEY_2026_FACTS = [
   "fyi 48 teams in the world cup for the first time ever this year",
@@ -1321,19 +1369,34 @@ function tickChat() {
     line = window._chatQueue.shift();
     _lastWasAshley = (line.name === 'ashley');
   } else if (window._hasLiveOrSoonGame === false) {
-    // No game on: mix last game recap, 2026 facts, and Kayla waiting lines
+    // No game on: rich mix of content
     const rand = Math.random();
-    if (rand < 0.4 && window._lastGameLines && window._lastGameLines.length > 0) {
-      // Talk about last game
+    if (rand < 0.25 && window._lastGameLines && window._lastGameLines.length > 0) {
+      // Recap last game
       const pick = window._lastGameLines[Math.floor(Math.random() * window._lastGameLines.length)];
       line = { name: 'ashley', line: pick };
       _lastWasAshley = true;
-    } else if (rand < 0.65) {
+    } else if (rand < 0.4) {
+      // Spicy trivia
+      line = { name: 'ashley', line: ASHLEY_TRIVIA_LINES[Math.floor(Math.random() * ASHLEY_TRIVIA_LINES.length)] };
+      _lastWasAshley = true;
+    } else if (rand < 0.5) {
+      // Prediction for next game
+      line = { name: 'ashley', line: ASHLEY_PREDICTION_LINES[Math.floor(Math.random() * ASHLEY_PREDICTION_LINES.length)] };
+      _lastWasAshley = true;
+    } else if (rand < 0.6) {
+      // Player debate pair — queue both lines together
+      const pair = PLAYER_DEBATE_PAIRS[Math.floor(Math.random() * PLAYER_DEBATE_PAIRS.length)];
+      window._chatQueue.unshift(pair[1]); // second line queued for next tick
+      line = pair[0];
+      _lastWasAshley = false;
+    } else if (rand < 0.75) {
       // General 2026 facts
       const facts = [...ASHLEY_2026_FACTS, ...ASHLEY_FALLBACK_LINES];
       line = { name: 'ashley', line: facts[Math.floor(Math.random() * facts.length)] };
       _lastWasAshley = true;
     } else {
+      // Kayla no-game vibes
       line = { name: 'kayla', line: pickNonRepeating(KAYLA_WAITING_LINES) };
       _lastWasAshley = false;
     }
