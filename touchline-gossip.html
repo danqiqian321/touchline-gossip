@@ -324,7 +324,13 @@
       gap: 16px;
     }
   }
-  .tracker-card .status {
+  .tracker-card-desc {
+    text-align: center;
+    color: var(--pink-hot);
+    font-size: 1rem;
+    line-height: 23px;
+    margin: -16px 0 40px;
+  }
     text-align: center;
     color: var(--pink-hot);
     margin-bottom: 16px;
@@ -345,16 +351,16 @@
     border-left: none;
     color: var(--text-dark);
     margin-bottom: 4px;
-    animation: chat-in 0.25s ease-out;
+    animation: chat-in 0.8s cubic-bezier(0.16, 1, 0.3, 1);
   }
   @keyframes chat-in {
-    from { opacity: 0; transform: translateY(8px); }
-    to { opacity: 1; transform: translateY(0); }
+    from { opacity: 0; transform: translateY(16px) scale(0.95); }
+    to   { opacity: 1; transform: translateY(0)    scale(1); }
   }
   #commentary {
     max-height: 320px;
     overflow-y: auto;
-    margin-top: 16px;
+    margin-top: 0px;
     display: flex;
     flex-direction: column;
     gap: 2px;
@@ -400,6 +406,81 @@
     letter-spacing: 1px;
     margin-bottom: 6px;
     font-weight: 700;
+  }
+  .tracker-card .chat-skeleton {
+    height: 20px;
+    margin: 8px auto;
+    border-radius: 6px;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #ffffff, #ffe6f1, #ffffff);
+    background-size: 300% 300%;
+    animation: skeleton-shimmer 4s ease-in-out infinite;
+  }
+  .tracker-card .chat-skeleton::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(233,30,140,0.12), transparent);
+    transform: translateX(-100%);
+    animation: skeleton-sweep 2.2s ease-in-out infinite;
+  }
+  .tracker-card .match-skeleton {
+    height: 56px;
+    margin: 8px 0;
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #ffffff, #ffe6f1, #ffffff);
+    background-size: 300% 300%;
+    animation: skeleton-shimmer 4s ease-in-out infinite;
+  }
+  .tracker-card .match-skeleton::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(233,30,140,0.12), transparent);
+    transform: translateX(-100%);
+    animation: skeleton-sweep 2.2s ease-in-out infinite;
+  }
+  @keyframes skeleton-shimmer {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+  @keyframes skeleton-sweep {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+  .tracker-card .chat-skeleton:nth-child(2) { animation-delay: 0.3s; }
+  .tracker-card .chat-skeleton:nth-child(3) { animation-delay: 0.6s; }
+  .tracker-card .chat-skeleton:nth-child(4) { animation-delay: 0.9s; }
+  .tracker-card .chat-skeleton:nth-child(2)::before { animation-delay: 0.3s; }
+  .tracker-card .chat-skeleton:nth-child(3)::before { animation-delay: 0.6s; }
+  .tracker-card .chat-skeleton:nth-child(4)::before { animation-delay: 0.9s; }
+  .tracker-card .match-skeleton:nth-child(2) { animation-delay: 0.3s; }
+  .tracker-card .match-skeleton:nth-child(3) { animation-delay: 0.6s; }
+  .tracker-card .match-skeleton:nth-child(4) { animation-delay: 0.9s; }
+  .tracker-card .match-skeleton:nth-child(5) { animation-delay: 1.2s; }
+  .tracker-card .match-skeleton:nth-child(6) { animation-delay: 1.5s; }
+  .tracker-card .match-skeleton:nth-child(7) { animation-delay: 1.8s; }
+  .tracker-card .match-skeleton:nth-child(8) { animation-delay: 2.1s; }
+  .tracker-card .match-skeleton:nth-child(9) { animation-delay: 2.4s; }
+  .tracker-card .match-skeleton:nth-child(10) { animation-delay: 2.7s; }
+  .tracker-card .match-skeleton:nth-child(2)::before { animation-delay: 0.3s; }
+  .tracker-card .match-skeleton:nth-child(3)::before { animation-delay: 0.6s; }
+  .tracker-card .match-skeleton:nth-child(4)::before { animation-delay: 0.9s; }
+  .tracker-card .match-skeleton:nth-child(5)::before { animation-delay: 1.2s; }
+  .tracker-card .match-skeleton:nth-child(6)::before { animation-delay: 1.5s; }
+  .tracker-card .match-skeleton:nth-child(7)::before { animation-delay: 1.8s; }
+  .tracker-card .match-skeleton:nth-child(8)::before { animation-delay: 2.1s; }
+  .tracker-card .match-skeleton:nth-child(9)::before { animation-delay: 2.4s; }
+  .tracker-card .match-skeleton:nth-child(10)::before { animation-delay: 2.7s; }
+  .tracker-card .match-fade-in {
+    animation: match-fade-in 0.4s ease-out;
+  }
+  @keyframes match-fade-in {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
   }
   .tracker-card .match {
     display: flex;
@@ -590,7 +671,7 @@
 <body>
 
 <div class="top-banner">
-  ~ for girls like me who know nothing about soccer but still wants to engage in world cup season ~ i got you babe ~
+  ~ for friends like me who know nothing about soccer but still wants to engage in world cup season ~ i got you babe ~
 </div>
 
 <section class="hero">
@@ -598,8 +679,8 @@
   <img src="logo_mobile.svg" alt="Touchline Gossip" class="logo mobile">
   <div class="hero-sub">
     <img src="star_1.png" alt="" class="sparkle left">
-    <p>Watching world cup with your date?</p>
-    <p>Use Touchline Gossip to talk elite trash with your finance bro ;)</p>
+    <p>Watching world cup but don't know what to comment?</p>
+    <p>Use Touchline Gossip to talk elite trash with your friends ;)</p>
     <img src="star_1.png" alt="" class="sparkle right">
   </div>
 </section>
@@ -608,14 +689,32 @@
   <div class="status" id="status"></div>
 
   <div class="tracker-card">
-    <h2><img src="star_2.png" alt="" class="star"> Hot Take <img src="star_2.png" alt="" class="star"></h2>
+    <h2><img src="star_2.png" alt="" class="star"> Hot Chat <img src="star_2.png" alt="" class="star"></h2>
+    <p class="tracker-card-desc">This can be your comments too.</p>
     <div class="commentary-match-label" id="match-label"></div>
-    <div id="commentary"></div>
+    <div id="commentary">
+      <div class="chat-skeleton" style="width: 70%;"></div>
+      <div class="chat-skeleton" style="width: 55%; margin-left: auto; margin-right: auto;"></div>
+      <div class="chat-skeleton" style="width: 80%;"></div>
+      <div class="chat-skeleton" style="width: 60%; margin-left: auto; margin-right: auto;"></div>
+    </div>
   </div>
 
   <div class="tracker-card">
     <h2><img src="star_2.png" alt="" class="star"> Matches <img src="star_2.png" alt="" class="star"></h2>
-    <div id="matches"><p class="empty"></p></div>
+    <p class="tracker-card-desc">Live scores, who scored, and what's up next.</p>
+    <div id="matches">
+      <div class="match-skeleton"></div>
+      <div class="match-skeleton"></div>
+      <div class="match-skeleton"></div>
+      <div class="match-skeleton"></div>
+      <div class="match-skeleton"></div>
+      <div class="match-skeleton"></div>
+      <div class="match-skeleton"></div>
+      <div class="match-skeleton"></div>
+      <div class="match-skeleton"></div>
+      <div class="match-skeleton"></div>
+    </div>
   </div>
 </div>
 
@@ -650,7 +749,9 @@
 const COMPETITION = 'WC';
 let pollTimer = null;
 let chatTimer = null;
+let _claudeCallCount = 0;
 let tickerTimer = null;
+let scheduleNextCommentary = () => {}; // defined in init()
 
 function setStatus(msg, isError = false) {
   const el = document.getElementById('status');
@@ -721,7 +822,7 @@ function renderMatches(data) {
     const homeCrest = m.homeTeam.crest;
     const awayCrest = m.awayTeam.crest;
     return `
-      <div class="match clickable" onclick="loadFormation(${m.id}, '${home.replace(/'/g, "\\'")}', '${away.replace(/'/g, "\\'")}')">
+      <div class="match clickable match-fade-in" onclick="loadFormation(${m.id}, '${home.replace(/'/g, "\\'")}', '${away.replace(/'/g, "\\'")}')">
         <div class="match-row">
           <div class="teams">
             ${homeCrest ? `<img src="${homeCrest}" class="crest" alt="">` : ''}${home}
@@ -888,8 +989,22 @@ const KAYLA_LINES = [
   "whoever designed these jerseys deserves a raise",
   "#7 keeps looking at the camera and i'm into it",
   "not me getting invested in this so fast",
-  "the subs warming up look way too comfy",
-  "someone tell #10 i said hi"
+  "someone tell #10 i said hi",
+  "okay but the post match interviews are the real content"
+];
+
+// Kayla: lines for when no game is currently live or starting soon
+const KAYLA_WAITING_LINES = [
+  "waiting for the next match like it's a date",
+  "refreshing the schedule every five minutes, no shame",
+  "i miss them already, who's playing next",
+  "intermission is the worst part of any date tbh",
+  "okay but who do we have a crush on next match",
+  "the wait before kickoff hits different every time",
+  "calendar's open, counting down to the next one",
+  "nothing on rn but the anticipation is its own vibe",
+  "between games is when i miss the drama most",
+  "saving my energy for whoever's up next"
 ];
 
 // Mia: short reaction bursts
@@ -906,6 +1021,20 @@ const MIA_LINES = [
   "we are not okay"
 ];
 
+// Kayla/Mia reply lines triggered after Ashley speaks — creates back-and-forth
+const ASHLEY_REPLY_LINES = [
+  { name: 'kayla', line: "ashley with the receipts as always" },
+  { name: 'mia', line: "okay ashley we get it you did your homework" },
+  { name: 'kayla', line: "ash how do you even know all this" },
+  { name: 'mia', line: "ashley said what she said" },
+  { name: 'kayla', line: "ashley carrying the group chat again" },
+  { name: 'mia', line: "ash literally never misses" },
+  { name: 'kayla', line: "okay i didn't know that but now i'm invested" },
+  { name: 'mia', line: "ashley doing the most as per usual" }
+];
+
+let _lastWasAshley = false;
+
 // Ashley: fallback facts if Claude is unavailable
 const ASHLEY_FALLBACK_LINES = [
   "brazil hasn't lost a world cup opener since 2006",
@@ -918,24 +1047,24 @@ const ASHLEY_FALLBACK_LINES = [
 
 // Ashley: real 2026 World Cup facts to seed chat history on page load
 const ASHLEY_2026_FACTS = [
-  "this world cup has 48 teams for the first time ever",
-  "mexico opened the tournament against south africa at estadio azteca",
-  "the final is july 19 at metlife stadium in new jersey",
-  "12 groups of four, top two plus best third-placed teams advance",
-  "this is the first world cup hosted by three countries",
-  "104 matches total, 40 more than the 2022 tournament",
-  "argentina enters as defending champions with messi leading again",
-  "coldplay is doing the halftime show at the final",
-  "16 host cities across the us, mexico, and canada this year",
-  "round of 32 kicks off the knockout stage this time"
+  "fyi 48 teams in the world cup for the first time ever this year",
+  "btw mexico opened the tournament against south africa at estadio azteca this year",
+  "fyi the final is july 19 at metlife stadium in new jersey this year",
+  "btw 12 groups of four, top two plus best third-placed teams advance this year",
+  "fyi first world cup ever hosted by three countries this year",
+  "btw 104 matches total, 40 more than 2022 this year",
+  "fyi argentina enters as defending champions with messi leading again this year",
+  "btw coldplay is doing the halftime show at the final this year",
+  "fyi 16 host cities across the us, mexico, and canada this year",
+  "btw round of 32 kicks off the knockout stage for the first time this year"
 ];
 
-async function getCommentary(matchSummary) {
+async function getCommentary(matchSummary, gameState, lineCount = 5) {
   try {
     const res = await fetch('/api/commentary', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ matchSummary })
+      body: JSON.stringify({ matchSummary, gameState, lineCount })
     });
     const data = await res.json();
     if (data.content && data.content[0] && data.content[0].text) {
@@ -961,12 +1090,12 @@ async function getDynamicSeedFacts() {
         const teamName = leader.team?.shortName || leader.team?.name;
         const groupName = g.group ? g.group.replace('GROUP_', 'group ').toLowerCase() : '';
         if (teamName && groupName) {
-          facts.push(`${teamName.toLowerCase()} is topping ${groupName} right now`);
+          facts.push(`fyi ${teamName.toLowerCase()} is topping ${groupName} this year`);
         }
         if (table.length > 1 && leader.points === table[1].points) {
           const second = table[1].team?.shortName || table[1].team?.name;
           if (second) {
-            facts.push(`${teamName.toLowerCase()} and ${second.toLowerCase()} are tied on points in ${groupName}`);
+            facts.push(`btw ${teamName.toLowerCase()} and ${second.toLowerCase()} are tied on points in ${groupName} this year`);
           }
         }
       }
@@ -983,12 +1112,21 @@ const AVATAR_COLORS = {
   mia: '#9c4dcc'
 };
 
+const KAYLA_DISPLAY_NAMES = ['Kayla', 'KK', 'Miquela', 'Riri', 'Coco'];
+
 function appendChatLine(l) {
   const container = document.getElementById('commentary');
   if (!container) return;
+  const skeletons = container.querySelectorAll('.chat-skeleton');
+  if (skeletons.length > 0) {
+    skeletons.forEach(s => s.remove());
+  }
   const name = (l.name || '').toLowerCase();
   const color = AVATAR_COLORS[name] || 'var(--pink-deep)';
-  const displayName = name.charAt(0).toUpperCase() + name.slice(1);
+  let displayName = name.charAt(0).toUpperCase() + name.slice(1);
+  if (name === 'kayla') {
+    displayName = KAYLA_DISPLAY_NAMES[Math.floor(Math.random() * KAYLA_DISPLAY_NAMES.length)];
+  }
   const html = `
     <div class="chat-line">
       <span class="chat-name" style="color: ${color};">${displayName}</span>
@@ -1004,109 +1142,152 @@ function appendChatLine(l) {
 
 async function loadCommentary(matchesData) {
   const container = document.getElementById('commentary');
-  if (!matchesData) {
-    container.innerHTML = '';
-    return;
-  }
+  if (!matchesData) return;
   const matches = matchesData.matches || [];
 
   const live = matches.filter(m => m.status === 'IN_PLAY' || m.status === 'PAUSED' || m.status === 'LIVE');
-  const finished = matches.filter(m => m.status === 'FINISHED');
-  const scheduled = matches.filter(m => m.status === 'SCHEDULED' || m.status === 'TIMED');
+  const finished = matches.filter(m => m.status === 'FINISHED')
+    .sort((a, b) => new Date(b.utcDate) - new Date(a.utcDate));
 
-  // Pick a single most-relevant match: live > most recently finished > next upcoming
-  const pick = live[0] || finished[finished.length - 1] || scheduled[0];
+  // Only proceed if there's a live game OR a recently finished one (recap)
+  const pick = live[0] || finished[0] || null;
+  if (!pick) return;
 
-  if (!pick) {
-    container.innerHTML = '';
-    return;
-  }
+  const isLive = live.includes(pick);
+  const isFinished = finished.includes(pick);
+
+  // Don't call Claude for upcoming-only situations
+  if (!isLive && !isFinished) return;
 
   const home = pick.homeTeam.shortName || pick.homeTeam.name;
   const away = pick.awayTeam.shortName || pick.awayTeam.name;
   const hs = pick.score.fullTime.home ?? 0;
-  const as = pick.score.fullTime.away ?? 0;
+  const as_ = pick.score.fullTime.away ?? 0;
   const label = `${home} vs ${away}`;
 
   let summary;
-  const leader = hs > as ? home : as > hs ? away : null;
-  const leadInfo = leader ? ` ${leader} is currently leading.` : hs === as && (hs+as) > 0 ? ` Currently tied.` : '';
+  const leader = hs > as_ ? home : as_ > hs ? away : null;
 
-  if (live.includes(pick)) {
-    summary = `LIVE NOW: ${home} vs ${away}, score ${hs}-${as}, status ${pick.status}.${leadInfo}`;
-  } else if (finished.includes(pick)) {
-    summary = `JUST FINISHED: ${home} vs ${away} ended ${hs}-${as}.${leadInfo ? ` ${leader} won.` : hs === as ? ' It was a draw.' : ''}`;
+  if (isLive) {
+    summary = `GAME IS LIVE: ${home} vs ${away}, current score ${hs}-${as_}.${leader ? ` ${leader} is leading.` : ' tied.'}`;
   } else {
-    const date = new Date(pick.utcDate);
-    summary = `UPCOMING: ${home} vs ${away} kicks off ${date.toLocaleString()}.`;
+    summary = `GAME JUST FINISHED: ${home} vs ${away} final score ${hs}-${as_}.${leader ? ` ${leader} won.` : ' it was a draw.'}`;
   }
 
-  // Enrich live/finished matches with detailed data from football-data.org
-  if (live.includes(pick) || (hs + as) > 0) {
-    try {
-      const data = await fetchFromAPI(`matches/${pick.id}`);
-      const match = data.match || data;
+  // Always enrich with detailed match data from football-data.org
+  try {
+    const data = await fetchFromAPI(`matches/${pick.id}`);
+    const match = data.match || data;
 
-      // Live clock/minute
-      if (live.includes(pick) && match.minute != null) {
-        summary += ` Currently in minute ${match.minute}.`;
-      }
-
-      const goals = match.goals || [];
-      if (goals.length > 0) {
-        const sortedGoals = [...goals].sort((a, b) => (a.minute ?? 0) - (b.minute ?? 0));
-        const goalLines = sortedGoals.map((g, i) => {
-          const scorer = g.scorer?.name || 'someone';
-          const minute = g.minute != null ? `${g.minute}'` : '';
-          const teamName = g.team?.name || '';
-          return `${i+1}. ${scorer} (${teamName}) ${minute}`;
-        }).join(', ');
-        summary += ` Goals in order: ${goalLines}.`;
-      }
-
-      // Bookings (cards) if available
-      const bookings = match.bookings || [];
-      if (bookings.length > 0) {
-        const recentBooking = bookings[bookings.length - 1];
-        const player = recentBooking.player?.name || 'a player';
-        const card = recentBooking.card === 'YELLOW_CARD' ? 'yellow card' : recentBooking.card === 'RED_CARD' ? 'red card' : 'card';
-        const minute = recentBooking.minute != null ? ` at ${recentBooking.minute}'` : '';
-        summary += ` Most recent card: ${player} got a ${card}${minute}.`;
-      }
-
-      // Substitutions if available
-      const subs = match.substitutions || [];
-      if (subs.length > 0) {
-        const recentSub = subs[subs.length - 1];
-        const playerOut = recentSub.playerOut?.name;
-        const playerIn = recentSub.playerIn?.name;
-        if (playerOut && playerIn) {
-          summary += ` Latest sub: ${playerIn} replaced ${playerOut}.`;
-        }
-      }
-    } catch (e) {
-      console.error('Could not fetch match details:', e);
+    if (isLive && match.minute != null) {
+      summary += ` (background context, don't mention this directly: minute ${match.minute})`;
     }
+
+    const goals = match.goals || [];
+    if (goals.length > 0) {
+      const sorted = [...goals].sort((a, b) => (a.minute ?? 0) - (b.minute ?? 0));
+      const goalLines = sorted.map((g, i) => {
+        const scorer = g.scorer?.name || 'unknown';
+        const min = g.minute != null ? `${g.minute}'` : '';
+        const team = g.team?.name || '';
+        return `${i+1}. ${scorer} (${team}) ${min}`;
+      }).join(', ');
+      summary += ` Goals: ${goalLines}.`;
+    }
+
+    const bookings = match.bookings || [];
+    if (bookings.length > 0) {
+      const b = bookings[bookings.length - 1];
+      const card = b.card === 'YELLOW_CARD' ? 'yellow card' : b.card === 'RED_CARD' ? 'red card' : 'card';
+      const min = b.minute != null ? ` at ${b.minute}'` : '';
+      summary += ` Latest card: ${b.player?.name || 'a player'} got a ${card}${min}.`;
+    }
+
+    const subs = match.substitutions || [];
+    if (subs.length > 0) {
+      const s = subs[subs.length - 1];
+      if (s.playerOut?.name && s.playerIn?.name) {
+        summary += ` Latest sub: ${s.playerIn.name} replaced ${s.playerOut.name}.`;
+      }
+    }
+  } catch (e) {
+    console.error('Could not fetch match details:', e);
+  }
+
+  // Enrich with recent form for both teams
+  try {
+    const [homeForm, awayForm] = await Promise.all([
+      fetchFromAPI(`teams/${pick.homeTeam.id}/matches?status=FINISHED&limit=3`),
+      fetchFromAPI(`teams/${pick.awayTeam.id}/matches?status=FINISHED&limit=3`)
+    ]);
+
+    const getLastResult = (data, teamName, teamId) => {
+      const recent = (data.matches || [])
+        .filter(m => m.id !== pick.id)
+        .sort((a, b) => new Date(b.utcDate) - new Date(a.utcDate));
+      const last = recent[0];
+      if (!last) return null;
+      const isHome = last.homeTeam.id === teamId;
+      const h = last.homeTeam.shortName || last.homeTeam.name;
+      const a = last.awayTeam.shortName || last.awayTeam.name;
+      const hs2 = last.score.fullTime.home ?? 0;
+      const as2 = last.score.fullTime.away ?? 0;
+      const teamScore = isHome ? hs2 : as2;
+      const oppScore = isHome ? as2 : hs2;
+      const opp = isHome ? a : h;
+      const result = teamScore > oppScore ? 'won' : teamScore < oppScore ? 'lost' : 'drew';
+      return `${teamName} ${result} ${teamScore}-${oppScore} vs ${opp} in their last game`;
+    };
+
+    const homeResult = getLastResult(homeForm, home, pick.homeTeam.id);
+    const awayResult = getLastResult(awayForm, away, pick.awayTeam.id);
+    if (homeResult) summary += ` Recent form: ${homeResult}.`;
+    if (awayResult) summary += ` ${awayResult}.`;
+  } catch (e) {
+    console.error('Could not fetch team form:', e);
   }
 
   const labelEl = document.getElementById('match-label');
-  if (labelEl && labelEl.textContent !== label) {
-    labelEl.textContent = label;
+  if (labelEl) {
+    labelEl.textContent = isLive ? label : '';
   }
 
-  const raw = await getCommentary(summary);
-  let ashleyLine;
+  const gameState = isLive ? 'live' : 'finished';
+  const lineCount = _claudeCallCount === 0 ? 5 : 10;
+  _claudeCallCount++;
+  const raw = await getCommentary(summary, gameState, lineCount);
+
   if (raw) {
-    let cleaned = raw.replace(/```/g, '').replace(/^["']|["']$/g, '').trim().toLowerCase();
-    // Reject malformed responses: too long, contains JSON-like syntax, or multiple sentences leaking
-    const looksValid = cleaned.length > 0 && cleaned.length < 80 &&
-      !cleaned.includes('{') && !cleaned.includes('[') &&
-      !cleaned.includes('"name"') && cleaned.split(/[.!?]/).filter(Boolean).length <= 1;
-    ashleyLine = looksValid ? cleaned.replace(/[.!?]+$/, '') : ASHLEY_FALLBACK_LINES[Math.floor(Math.random() * ASHLEY_FALLBACK_LINES.length)];
-  } else {
-    ashleyLine = ASHLEY_FALLBACK_LINES[Math.floor(Math.random() * ASHLEY_FALLBACK_LINES.length)];
+    const summaryDigits = new Set((summary.match(/\d+/g) || []));
+
+    function isValidLine(line) {
+      const l = line.trim().toLowerCase();
+      return l.length > 0 && l.length < 80 &&
+        !l.includes('{') && !l.includes('[') &&
+        !l.includes('"name"') &&
+        !l.includes('right now') &&
+        !l.startsWith('this ') &&
+        l.split(/[.!?]/).filter(Boolean).length <= 1 &&
+        !(l.match(/\d+/g) || []).some(d => !summaryDigits.has(d));
+    }
+
+    try {
+      const cleaned = raw.replace(/```json|```/g, '').trim();
+      const lines = JSON.parse(cleaned);
+      if (Array.isArray(lines)) {
+        lines
+          .map(l => (typeof l === 'string' ? l.toLowerCase().replace(/[.!?]+$/, '').trim() : ''))
+          .filter(isValidLine)
+          .forEach(line => window._chatQueue.push({ name: 'ashley', line }));
+      }
+    } catch (e) {
+      // Fallback: try as single line
+      const single = raw.replace(/```/g, '').replace(/^["']|["']$/g, '').trim().toLowerCase();
+      if (isValidLine(single)) {
+        window._chatQueue.push({ name: 'ashley', line: single.replace(/[.!?]+$/, '') });
+      }
+    }
   }
-  window._chatQueue.push({ name: 'ashley', line: ashleyLine });
 }
 
 // Fast ticker: appends one chat line at a time, every ~1.5s
@@ -1126,13 +1307,34 @@ function pickNonRepeating(pool) {
 function tickChat() {
   let line;
 
-  // Prioritize queued Ashley facts (from Claude/seed), otherwise mix Kayla/Mia
-  if (window._chatQueue.length > 0 && Math.random() < 0.7) {
+  // If last line was Ashley, sometimes fire a reply first
+  if (_lastWasAshley && Math.random() < 0.4) {
+    line = ASHLEY_REPLY_LINES[Math.floor(Math.random() * ASHLEY_REPLY_LINES.length)];
+    _lastWasAshley = false;
+    appendChatLine(line);
+    return;
+  }
+
+  // Ashley only speaks from queue (Claude/API-sourced facts)
+  const queueChance = window._hasLiveGame ? 0.65 : 0.45;
+  if (window._chatQueue.length > 0 && Math.random() < queueChance) {
     line = window._chatQueue.shift();
+    _lastWasAshley = (line.name === 'ashley');
+  } else if (window._hasLiveOrSoonGame === false) {
+    // No game on: Kayla waiting lines, occasional Ashley 2026 fact
+    if (Math.random() < 0.25) {
+      line = { name: 'ashley', line: ASHLEY_2026_FACTS[Math.floor(Math.random() * ASHLEY_2026_FACTS.length)] };
+      _lastWasAshley = true;
+    } else {
+      line = { name: 'kayla', line: pickNonRepeating(KAYLA_WAITING_LINES) };
+      _lastWasAshley = false;
+    }
   } else {
+    // Game on or soon: Kayla/Mia random banter
     const speaker = Math.random() < 0.75 ? 'kayla' : 'mia';
     const pool = speaker === 'kayla' ? KAYLA_LINES : MIA_LINES;
     line = { name: speaker, line: pickNonRepeating(pool) };
+    _lastWasAshley = false;
   }
   appendChatLine(line);
 }
@@ -1143,7 +1345,57 @@ async function loadData() {
 
     const matchesData = await fetchFromAPI(`competitions/${COMPETITION}/matches`);
     renderMatches(matchesData);
+
+    const matches = matchesData.matches || [];
+    const live = matches.filter(m => m.status === 'IN_PLAY' || m.status === 'PAUSED' || m.status === 'LIVE');
+    const upcoming = matches.filter(m => m.status === 'SCHEDULED' || m.status === 'TIMED')
+      .sort((a, b) => new Date(a.utcDate) - new Date(b.utcDate));
+    window._hasLiveGame = live.length > 0;
+    window._hasLiveOrSoonGame = live.length > 0 || (upcoming.length > 0 && (new Date(upcoming[0].utcDate) - Date.now()) < 2 * 60 * 60 * 1000);
+
+    // Detect score change on live matches → immediate Claude call + reaction
+    if (live.length > 0 && window._lastMatchesData) {
+      const prevMatches = window._lastMatchesData.matches || [];
+      for (const m of live) {
+        const prev = prevMatches.find(p => p.id === m.id);
+        if (prev) {
+          const prevTotal = (prev.score.fullTime.home ?? 0) + (prev.score.fullTime.away ?? 0);
+          const currTotal = (m.score.fullTime.home ?? 0) + (m.score.fullTime.away ?? 0);
+          if (currTotal > prevTotal) {
+            // Goal scored! Fire immediate reactions
+            const home = m.homeTeam.shortName || m.homeTeam.name;
+            const away = m.awayTeam.shortName || m.awayTeam.name;
+            const hs = m.score.fullTime.home;
+            const as_ = m.score.fullTime.away;
+            console.log(`GOAL! ${home} ${hs}-${as_} ${away}`);
+
+            // Burst of immediate excited reactions from all the girls
+            const goalReactions = [
+              { name: 'mia', line: '!!!!!!!!!!' },
+              { name: 'kayla', line: 'WAIT WAIT WAIT WAIT' },
+              { name: 'mia', line: 'no no no no no' },
+              { name: 'kayla', line: 'i am NOT okay rn' },
+              { name: 'mia', line: 'screaming crying throwing up' },
+            ];
+            // Pick 2-3 reactions and stagger them into the front of queue
+            const picks = goalReactions.sort(() => Math.random() - 0.5).slice(0, 3);
+            picks.reverse().forEach(r => window._chatQueue.unshift(r));
+
+            // Interrupt normal schedule — call Claude immediately with new score
+            if (chatTimer) { clearTimeout(chatTimer); chatTimer = null; }
+            loadCommentary(matchesData).then(() => scheduleNextCommentary());
+            break;
+          }
+        }
+      }
+    }
+
     window._lastMatchesData = matchesData;
+
+    if (!window._hasLiveGame) {
+      const labelEl = document.getElementById('match-label');
+      if (labelEl) labelEl.textContent = '';
+    }
 
     setStatus('');
   } catch (e) {
@@ -1153,52 +1405,138 @@ async function loadData() {
 }
 
 function init() {
-  loadData();
-
   if (pollTimer) clearInterval(pollTimer);
-  pollTimer = setInterval(() => loadData(), 60000);
+  pollTimer = setInterval(() => {
+    loadData();
+    // Reschedule at faster rate if game is live
+    if (window._hasLiveGame && pollTimer) {
+      clearInterval(pollTimer);
+      pollTimer = setInterval(() => loadData(), 30000);
+    }
+  }, 60000);
 
-  window._chatQueue = [
-    { name: 'ashley', line: ASHLEY_2026_FACTS[0] },
-    { name: 'kayla', line: KAYLA_LINES[Math.floor(Math.random() * KAYLA_LINES.length)] },
-    { name: 'ashley', line: ASHLEY_2026_FACTS[Math.floor(Math.random() * ASHLEY_2026_FACTS.length)] },
-    { name: 'mia', line: MIA_LINES[Math.floor(Math.random() * MIA_LINES.length)] },
-    { name: 'ashley', line: ASHLEY_2026_FACTS[Math.floor(Math.random() * ASHLEY_2026_FACTS.length)] }
-  ];
+  window._chatQueue = [];
 
-  // Fetch live standings and insert real current facts into the seed queue
-  getDynamicSeedFacts().then(facts => {
-    facts.forEach((fact, i) => {
-      // Insert mid-queue so they appear after a couple of intro lines
-      const pos = Math.min(2 + i * 2, window._chatQueue.length);
-      window._chatQueue.splice(pos, 0, { name: 'ashley', line: fact });
-    });
+  // Build seed queue once matches data is available, tailored to game status
+  loadData().then(() => {
+    const hasLiveOrSoonGame = window._hasLiveOrSoonGame;
+    const hasLiveGame = window._hasLiveGame;
+
+    if (!hasLiveOrSoonGame) {
+      // No game: recap last finished match + standings + Kayla waiting lines
+      const labelEl = document.getElementById('match-label');
+      if (labelEl) labelEl.textContent = '';
+
+      const matches = window._lastMatchesData?.matches || [];
+      const finished = matches.filter(m => m.status === 'FINISHED')
+        .sort((a, b) => new Date(b.utcDate) - new Date(a.utcDate));
+      const lastGame = finished[0];
+
+      if (lastGame) {
+        const home = lastGame.homeTeam.shortName || lastGame.homeTeam.name;
+        const away = lastGame.awayTeam.shortName || lastGame.awayTeam.name;
+        const hs = lastGame.score.fullTime.home ?? 0;
+        const as_ = lastGame.score.fullTime.away ?? 0;
+        const winner = hs > as_ ? home : as_ > hs ? away : null;
+        const result = winner ? `${winner} won ${Math.max(hs,as_)}-${Math.min(hs,as_)}` : `${home} and ${away} drew ${hs}-${as_}`;
+
+        // Seed Ashley with recap lines about the last game
+        const recapLines = [
+          `${result} in the last game`,
+          `${home} vs ${away} finished ${hs}-${as_}`,
+          winner ? `${winner} took all three points` : `${home} and ${away} split the points`
+        ];
+
+        // Try to enrich with scorer names
+        fetchFromAPI(`matches/${lastGame.id}`).then(data => {
+          const match = data.match || data;
+          const goals = match.goals || [];
+          if (goals.length > 0) {
+            const sorted = [...goals].sort((a, b) => (a.minute ?? 0) - (b.minute ?? 0));
+            sorted.slice(0, 2).forEach(g => {
+              const scorer = g.scorer?.name;
+              const min = g.minute != null ? `${g.minute}'` : '';
+              if (scorer) {
+                recapLines.push(`${scorer.toLowerCase()} scored at ${min}`);
+              }
+            });
+          }
+          // Push recap lines into queue
+          recapLines.forEach((line, i) => {
+            window._chatQueue.splice(i * 2, 0, { name: 'ashley', line });
+          });
+        }).catch(() => {
+          // Fallback without scorer details
+          recapLines.forEach((line, i) => {
+            window._chatQueue.splice(i * 2, 0, { name: 'ashley', line });
+          });
+        });
+      }
+
+      // Kayla waiting lines throughout
+      window._chatQueue.push(
+        { name: 'kayla', line: KAYLA_WAITING_LINES[Math.floor(Math.random() * KAYLA_WAITING_LINES.length)] },
+        { name: 'kayla', line: KAYLA_WAITING_LINES[Math.floor(Math.random() * KAYLA_WAITING_LINES.length)] }
+      );
+
+      // Standings facts also queued
+      getDynamicSeedFacts().then(facts => {
+        facts.slice(0, 2).forEach(fact => {
+          window._chatQueue.push({ name: 'ashley', line: fact });
+        });
+      });
+    } else if (hasLiveGame) {
+      // Live game: just 1 seed fact to cover load time, Claude takes over immediately
+      const randomFact = ASHLEY_2026_FACTS[Math.floor(Math.random() * ASHLEY_2026_FACTS.length)];
+      window._chatQueue.push(
+        { name: 'kayla', line: KAYLA_LINES[Math.floor(Math.random() * KAYLA_LINES.length)] },
+        { name: 'ashley', line: randomFact },
+        { name: 'mia', line: MIA_LINES[Math.floor(Math.random() * MIA_LINES.length)] }
+      );
+      // 1 standings fact max when live — keep it context-setting only
+      getDynamicSeedFacts().then(facts => {
+        if (facts.length > 0) {
+          window._chatQueue.splice(1, 0, { name: 'ashley', line: facts[0] });
+        }
+      });
+    } else {
+      // Game soon but not live: facts + waiting mix
+      const shuffledFacts = [...ASHLEY_2026_FACTS].sort(() => Math.random() - 0.5);
+      window._chatQueue.push(
+        { name: 'ashley', line: shuffledFacts[0] },
+        { name: 'kayla', line: KAYLA_WAITING_LINES[Math.floor(Math.random() * KAYLA_WAITING_LINES.length)] },
+        { name: 'ashley', line: shuffledFacts[1] }
+      );
+    }
+
+    // Start Claude scheduler now that we know game state
+    if (chatTimer) clearTimeout(chatTimer);
+    scheduleNextCommentary();
   });
 
-  // Start the group chat shortly after matches load, then keep it going
-  setTimeout(() => loadCommentary(window._lastMatchesData), 1500);
+  // Only call Claude when there's a live game — no point otherwise
+  setTimeout(() => {
+    if (window._hasLiveGame) loadCommentary(window._lastMatchesData);
+  }, 1500);
 
-  // Adaptive Claude frequency: frequent early on, tapering off over time to save cost
-  // 0-2min: every 20s | 2-5min: every 40s | 5min+: stop calling Claude (safety net)
+  // Adaptive Claude frequency — only fires when game is live
   window._sessionStart = Date.now();
-  function scheduleNextCommentary() {
-    const elapsed = Date.now() - window._sessionStart;
-
-    if (elapsed >= 5 * 60000) {
-      // Safety net: stop Claude calls after 5 minutes
+  scheduleNextCommentary = function() {
+    if (!window._hasLiveGame) {
       chatTimer = null;
       return;
     }
-
-    const delay = elapsed < 2 * 60000 ? 20000 : 40000;
-
+    const elapsed = Date.now() - window._sessionStart;
+    if (elapsed >= 5 * 60000) {
+      chatTimer = null;
+      return;
+    }
+    const delay = elapsed < 3 * 60000 ? 20000 : 40000;
     chatTimer = setTimeout(() => {
-      loadCommentary(window._lastMatchesData);
+      if (window._hasLiveGame) loadCommentary(window._lastMatchesData);
       scheduleNextCommentary();
     }, delay);
   }
-  if (chatTimer) clearTimeout(chatTimer);
-  scheduleNextCommentary();
 
   // Fast ticker: new chat line every ~1.5s, starts immediately to show seeded history
   if (tickerTimer) clearInterval(tickerTimer);
