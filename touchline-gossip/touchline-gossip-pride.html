@@ -1,0 +1,1695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Touchline Gossip 🌈</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bitcount+Prop+Double:wght@100..900&family=Inter:wght@400;500;600;700&family=Pacifico&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --pink-pale: #FFDCE7;
+    --pink-paler: #FFECF2;
+    --pink-hot: #e91e8c;
+    --pink-mid: #f7a8cf;
+    --pink-deep: #E20E77;
+    --text-dark: #3a1530;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    color: var(--text-dark);
+    line-height: 23px;
+    letter-spacing: -5%;
+    font-size: 22px;
+    background: var(--pink-paler);
+  }
+
+  .display-font {
+    font-family: "Bitcount Prop Double", system-ui;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    letter-spacing: -5%;
+    font-variation-settings:
+      "slnt" 0,
+      "CRSV" 0.5,
+      "ELSH" 0,
+      "ELXP" 0;
+  }
+
+  /* Top banner */
+  .top-banner {
+    background: var(--pink-hot);
+    color: #fff;
+    text-align: center;
+    padding: 12px 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+  }
+
+  /* Hero */
+  .hero {
+    background: var(--pink-pale);
+    text-align: center;
+    padding: 60px 24px 70px;
+  }
+
+  .logo {
+    max-width: 900px;
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+    display: block;
+  }
+  .logo.mobile { display: none; }
+  .logo.desktop { display: block; }
+
+  @media (max-width: 700px) {
+    .logo.desktop { display: none; }
+    .logo.mobile { display: block; max-width: 420px; }
+  }
+
+  .hero-sub {
+    margin-top: 28px;
+    font-size: 1.05rem;
+    color: var(--pink-hot);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+  }
+
+  .hero-sub p { margin: 4px 0; }
+
+  .sparkle {
+    position: absolute;
+    width: 54px;
+    height: auto;
+    opacity: 1;
+  }
+  .sparkle.left { left: -90px; top: 0; transform: rotate(270deg) scaleX(-1); }
+  .sparkle.right { right: -90px; top: 0; }
+
+  /* Main content */
+  .content {
+    background: var(--pink-paler);
+    padding: 70px 24px 70px;
+  }
+
+  .lineup-section {
+    max-width: 1100px;
+    margin: 0 auto;
+    background: var(--pink-pale);
+    border-radius: 18px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    overflow: hidden;
+    min-height: 420px;
+  }
+
+  .lineup-text {
+    padding: 56px 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .lineup-title {
+    font-family: "Bitcount Prop Double", system-ui;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    letter-spacing: -5%;
+    font-variation-settings:
+      "slnt" 0,
+      "CRSV" 0.5,
+      "ELSH" 0,
+      "ELXP" 0;
+    font-size: 63px;
+    line-height: 1.1;
+    color: var(--pink-pale);
+    -webkit-text-stroke: 11px var(--pink-deep);
+    paint-order: stroke fill;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-bottom: 30px;
+  }
+
+  .lineup-title .star {
+    width: 0.48em;
+    height: auto;
+    display: inline-block;
+  }
+
+  .lineup-text p {
+    text-align: center;
+    color: var(--pink-hot);
+    font-size: 1rem;
+    line-height: 23px;
+    margin: 4px 0;
+  }
+
+  /* Pitch graphic */
+  .pitch-wrap {
+    position: relative;
+    overflow: hidden;
+    min-height: 420px;
+  }
+
+  .pitch-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Footer */
+  .footer {
+    background: var(--pink-deep);
+    color: #fff;
+    padding: 70px 24px 50px;
+    text-align: center;
+  }
+
+  .footer h2 {
+    font-family: "Bitcount Prop Double", system-ui;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-variation-settings:
+      "slnt" 0,
+      "CRSV" 0.5,
+      "ELSH" 0,
+      "ELXP" 0;
+    font-size: 101px;
+    line-height: 1.1;
+    color: var(--pink-deep);
+    -webkit-text-stroke: 11px #fff;
+    paint-order: stroke fill;
+    letter-spacing: -5%;
+    margin-bottom: 28px;
+  }
+
+  @media (max-width: 700px) {
+    .footer h2 {
+      font-size: 60px;
+    }
+  }
+
+  .footer p {
+    max-width: 520px;
+    margin: 6px auto;
+    font-size: 1rem;
+    opacity: 0.95;
+  }
+
+  .footer-links {
+    margin-top: 40px;
+    font-size: 0.95rem;
+  }
+
+  .footer-links a {
+    color: #fff;
+    text-decoration: none;
+    opacity: 0.9;
+  }
+  .footer-links a:hover {
+    opacity: 1;
+    text-decoration: underline;
+  }
+
+  .footer-links span {
+    margin: 0 10px;
+    opacity: 0.5;
+  }
+
+  /* Responsive */
+  @media (max-width: 800px) {
+    .lineup-section {
+      grid-template-columns: 1fr;
+      align-items: start;
+    }
+    .lineup-text {
+      padding: 40px 32px;
+      align-items: center;
+      justify-content: flex-start;
+      text-align: center;
+    }
+    .lineup-title {
+      margin-bottom: 30px;
+    }
+    .desktop-break {
+      display: none;
+    }
+    .pitch-wrap {
+      min-height: 0;
+    }
+    .pitch-img {
+      position: static;
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: initial;
+      object-position: initial;
+    }
+    .sparkle.left, .sparkle.right {
+      display: none;
+    }
+    .hero h1 {
+      letter-spacing: 1px;
+    }
+  }
+
+  /* ===== Pink tracker cards (Commentary + Matches) ===== */
+  .tracker-cards {
+    background: var(--pink-paler);
+    padding: 70px 24px 0;
+  }
+  .tracker-card {
+    max-width: 1100px;
+    margin: 0 auto 70px;
+    background: var(--pink-pale);
+    border-radius: 18px;
+    padding: 28px 32px;
+  }
+  .tracker-card:last-child {
+    margin-bottom: 0;
+  }
+  .tracker-card h2 {
+    font-family: "Bitcount Prop Double", system-ui;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    letter-spacing: -5%;
+    font-variation-settings:
+      "slnt" 0,
+      "CRSV" 0.5,
+      "ELSH" 0,
+      "ELXP" 0;
+    font-size: 63px;
+    line-height: 1.1;
+    color: var(--pink-pale);
+    -webkit-text-stroke: 11px var(--pink-deep);
+    paint-order: stroke fill;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-bottom: 30px;
+  }
+  .tracker-card h2 .star {
+    width: 0.48em;
+    height: auto;
+    display: inline-block;
+    -webkit-text-stroke: 0;
+  }
+
+  @media (max-width: 700px) {
+    .lineup-title,
+    .tracker-card h2 {
+      font-size: 40px;
+    }
+    .lineup-title {
+      gap: 16px;
+    }
+  }
+  .tracker-card-desc {
+    text-align: center;
+    color: var(--pink-hot);
+    font-size: 1rem;
+    line-height: 23px;
+    margin: -16px 0 40px;
+  }
+    text-align: center;
+    color: var(--pink-hot);
+    margin-bottom: 16px;
+    font-size: 0.85rem;
+  }
+  .tracker-card .empty {
+    color: var(--pink-hot);
+    text-align: center;
+    padding: 12px;
+    font-size: 0.85rem;
+    opacity: 0.7;
+  }
+  .tracker-card .commentary-bubble {
+    background: transparent;
+    padding: 0;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    border-left: none;
+    color: var(--text-dark);
+    margin-bottom: 4px;
+    animation: chat-in 0.25s ease-out;
+  }
+  @keyframes chat-in {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  #commentary {
+    max-height: 320px;
+    overflow-y: auto;
+    margin-top: 0px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .tracker-card .commentary-match-label {
+    font-size: 1.1rem;
+    color: var(--pink-deep);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 0 0 16px;
+    font-weight: 700;
+    text-align: center;
+    opacity: 0.85;
+  }
+  .tracker-card .chat-line {
+    margin: 0;
+    padding: 3px 10px;
+    border-radius: 6px;
+    text-align: center;
+    font-size: 1.2rem;
+    line-height: 1.6;
+  }
+  .tracker-card .chat-line:hover {
+    background: rgba(255,255,255,0.5);
+  }
+  .tracker-card .chat-name {
+    font-weight: 700;
+    margin-right: 6px;
+  }
+  .tracker-card .chat-name::after {
+    content: ':';
+  }
+  .tracker-card .chat-text {
+    color: var(--text-dark);
+  }
+  .tracker-card .commentary-bubble + .commentary-bubble {
+    margin-top: 10px;
+  }
+  .tracker-card .commentary-match-label {
+    font-size: 0.7rem;
+    color: var(--pink-deep);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+    font-weight: 700;
+  }
+  .tracker-card .chat-skeleton {
+    height: 20px;
+    margin: 8px auto;
+    border-radius: 6px;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #ffffff, #ffe6f1, #ffffff);
+    background-size: 300% 300%;
+    animation: skeleton-shimmer 4s ease-in-out infinite;
+  }
+  .tracker-card .chat-skeleton::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(233,30,140,0.12), transparent);
+    transform: translateX(-100%);
+    animation: skeleton-sweep 2.2s ease-in-out infinite;
+  }
+  .tracker-card .match-skeleton {
+    height: 56px;
+    margin: 8px 0;
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #ffffff, #ffe6f1, #ffffff);
+    background-size: 300% 300%;
+    animation: skeleton-shimmer 4s ease-in-out infinite;
+  }
+  .tracker-card .match-skeleton::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(233,30,140,0.12), transparent);
+    transform: translateX(-100%);
+    animation: skeleton-sweep 2.2s ease-in-out infinite;
+  }
+  @keyframes skeleton-shimmer {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+  @keyframes skeleton-sweep {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+  .tracker-card .chat-skeleton:nth-child(2) { animation-delay: 0.3s; }
+  .tracker-card .chat-skeleton:nth-child(3) { animation-delay: 0.6s; }
+  .tracker-card .chat-skeleton:nth-child(4) { animation-delay: 0.9s; }
+  .tracker-card .chat-skeleton:nth-child(2)::before { animation-delay: 0.3s; }
+  .tracker-card .chat-skeleton:nth-child(3)::before { animation-delay: 0.6s; }
+  .tracker-card .chat-skeleton:nth-child(4)::before { animation-delay: 0.9s; }
+  .tracker-card .match-skeleton:nth-child(2) { animation-delay: 0.3s; }
+  .tracker-card .match-skeleton:nth-child(3) { animation-delay: 0.6s; }
+  .tracker-card .match-skeleton:nth-child(4) { animation-delay: 0.9s; }
+  .tracker-card .match-skeleton:nth-child(5) { animation-delay: 1.2s; }
+  .tracker-card .match-skeleton:nth-child(6) { animation-delay: 1.5s; }
+  .tracker-card .match-skeleton:nth-child(7) { animation-delay: 1.8s; }
+  .tracker-card .match-skeleton:nth-child(8) { animation-delay: 2.1s; }
+  .tracker-card .match-skeleton:nth-child(9) { animation-delay: 2.4s; }
+  .tracker-card .match-skeleton:nth-child(10) { animation-delay: 2.7s; }
+  .tracker-card .match-skeleton:nth-child(2)::before { animation-delay: 0.3s; }
+  .tracker-card .match-skeleton:nth-child(3)::before { animation-delay: 0.6s; }
+  .tracker-card .match-skeleton:nth-child(4)::before { animation-delay: 0.9s; }
+  .tracker-card .match-skeleton:nth-child(5)::before { animation-delay: 1.2s; }
+  .tracker-card .match-skeleton:nth-child(6)::before { animation-delay: 1.5s; }
+  .tracker-card .match-skeleton:nth-child(7)::before { animation-delay: 1.8s; }
+  .tracker-card .match-skeleton:nth-child(8)::before { animation-delay: 2.1s; }
+  .tracker-card .match-skeleton:nth-child(9)::before { animation-delay: 2.4s; }
+  .tracker-card .match-skeleton:nth-child(10)::before { animation-delay: 2.7s; }
+  .tracker-card .match-fade-in {
+    animation: match-fade-in 0.4s ease-out;
+  }
+  @keyframes match-fade-in {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .tracker-card .match {
+    display: flex;
+    flex-direction: column;
+    padding: 12px 8px;
+    border-bottom: 1px solid rgba(213,13,112,0.15);
+    font-size: 0.95rem;
+    color: var(--pink-hot);
+  }
+  .tracker-card .match-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .tracker-card .crest {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    vertical-align: middle;
+    margin: 0 4px;
+  }
+  .tracker-card .scorers {
+    margin-top: 8px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .tracker-card .goal-chip {
+    background: #fff;
+    color: var(--pink-deep);
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    border: 1px solid rgba(213,13,112,0.2);
+  }
+  .tracker-card .match:last-child { border-bottom: none; }
+  .tracker-card .match .teams { flex: 1; }
+  .tracker-card .match .score {
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin: 0 12px;
+    color: var(--pink-deep);
+  }
+  .tracker-card .match .status-tag {
+    font-size: 0.7rem;
+    padding: 3px 10px;
+    border-radius: 6px;
+    background: #fff;
+    color: var(--pink-hot);
+    min-width: 70px;
+    text-align: center;
+  }
+  .tracker-card .status-tag.live {
+    background: var(--pink-deep);
+    color: #fff;
+    animation: pulse-live 1.5s ease-in-out infinite;
+  }
+  @keyframes pulse-live {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+  }
+  .tracker-card .match.clickable {
+    cursor: pointer;
+    transition: background 0.15s;
+    border-radius: 6px;
+  }
+  .tracker-card .match.clickable:hover {
+    background: rgba(255,255,255,0.5);
+  }
+  .refresh-btn {
+    display: block;
+    margin: 0 auto 24px;
+    padding: 10px 24px;
+    border-radius: 8px;
+    border: none;
+    background: var(--pink-deep);
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+  }
+
+  #formation .pitch {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    aspect-ratio: 1.5 / 1;
+    margin: 0 auto;
+    background: linear-gradient(180deg, #2e7d32 0%, #1b5e20 100%);
+    border: 2px solid #fff;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  #formation .pitch::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: rgba(255,255,255,0.5);
+  }
+  #formation .pitch::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 80px;
+    height: 80px;
+    border: 2px solid rgba(255,255,255,0.5);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+  }
+  #formation .pitch-half-label {
+    position: absolute;
+    font-size: 0.65rem;
+    color: rgba(255,255,255,0.6);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;
+    z-index: 1;
+  }
+  #formation .pitch-half-label.home { top: 6px; left: 50%; transform: translateX(-50%); }
+  #formation .pitch-half-label.away { bottom: 6px; left: 50%; transform: translateX(-50%); }
+  #formation .player-token {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 60px;
+    text-align: center;
+    z-index: 2;
+  }
+  #formation .player-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #fff;
+    color: #0b1d3a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    font-weight: 700;
+    border: 2px solid #ffcc00;
+    margin-bottom: 2px;
+  }
+  #formation .player-avatar.away {
+    border-color: #ff6ec7;
+  }
+  #formation .player-name {
+    font-size: 0.6rem;
+    color: #f0f4f8;
+    line-height: 1.1;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 60px;
+  }
+  #formation .formation-legend {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-top: 12px;
+    font-size: 0.8rem;
+    color: #9fb3c8;
+  }
+  #formation .formation-legend span {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  #formation .legend-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #fff;
+    border: 2px solid #ffcc00;
+  }
+  #formation .legend-dot.away {
+    border-color: #ff6ec7;
+  }
+
+  /* ===== PRIDE RAINBOW THEME ===== */
+  @keyframes rainbow-bg {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  @keyframes rainbow-border-anim {
+    0%   { box-shadow: 0 0 0 3px #FF3B3B; }
+    16%  { box-shadow: 0 0 0 3px #FF8C00; }
+    33%  { box-shadow: 0 0 0 3px #FFE600; }
+    50%  { box-shadow: 0 0 0 3px #00C853; }
+    66%  { box-shadow: 0 0 0 3px #2979FF; }
+    83%  { box-shadow: 0 0 0 3px #AA00FF; }
+    100% { box-shadow: 0 0 0 3px #FF3B3B; }
+  }
+
+  body { background: #fffaf5; }
+
+  .top-banner {
+    background: linear-gradient(90deg, #FF3B3B, #FF8C00, #FFE600, #00C853, #2979FF, #AA00FF, #FF3B3B) !important;
+    background-size: 300% 100% !important;
+    animation: rainbow-bg 4s ease infinite !important;
+    font-weight: 600;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  }
+
+  .hero {
+    background: linear-gradient(135deg,
+      rgba(255,59,59,0.07), rgba(255,140,0,0.07), rgba(255,230,0,0.07),
+      rgba(0,200,83,0.07), rgba(41,121,255,0.07), rgba(170,0,255,0.07),
+      rgba(255,59,59,0.07)) !important;
+    background-size: 400% 400% !important;
+    animation: rainbow-bg 8s ease infinite !important;
+  }
+
+  .hero-sub {
+    background: linear-gradient(90deg, #FF3B3B, #FF8C00, #00C853, #2979FF, #AA00FF) !important;
+    background-size: 200% 100% !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+    animation: rainbow-bg 3s ease infinite !important;
+  }
+
+  .tracker-cards, .content {
+    background: linear-gradient(135deg,
+      rgba(255,59,59,0.04), rgba(255,140,0,0.04), rgba(255,230,0,0.04),
+      rgba(0,200,83,0.04), rgba(41,121,255,0.04), rgba(170,0,255,0.04)) !important;
+    background-size: 400% 400% !important;
+    animation: rainbow-bg 12s ease infinite !important;
+  }
+
+  .lineup-section, .tracker-card {
+    background: rgba(255,255,255,0.85) !important;
+    animation: rainbow-border-anim 4s linear infinite !important;
+  }
+
+  .lineup-title, .tracker-card h2 {
+    -webkit-text-stroke-width: 0 !important;
+    -webkit-text-stroke: none !important;
+    background: linear-gradient(90deg, #FF3B3B, #FF8C00, #FFE600, #00C853, #2979FF, #AA00FF, #FF3B3B) !important;
+    background-size: 300% 100% !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    color: transparent !important;
+    animation: rainbow-bg 4s ease infinite !important;
+  }
+
+  .footer {
+    background: linear-gradient(135deg, #FF3B3B, #FF8C00, #FFE600, #00C853, #2979FF, #AA00FF) !important;
+    background-size: 300% 300% !important;
+    animation: rainbow-bg 6s ease infinite !important;
+  }
+
+  .footer h2 {
+    background: none !important;
+    -webkit-background-clip: unset !important;
+    background-clip: unset !important;
+    -webkit-text-fill-color: #fff !important;
+    color: #fff !important;
+    -webkit-text-stroke: 11px rgba(255,255,255,0.25) !important;
+    animation: none !important;
+  }
+
+  .tracker-card .score {
+    background: linear-gradient(90deg, #FF3B3B, #FF8C00, #2979FF, #AA00FF) !important;
+    background-size: 200% !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    animation: rainbow-bg 2s ease infinite !important;
+  }
+
+  .tracker-card .chat-name {
+    background: linear-gradient(90deg, #FF3B3B, #FF8C00, #FFE600, #00C853, #2979FF, #AA00FF) !important;
+    background-size: 200% 100% !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    animation: rainbow-bg 3s ease infinite !important;
+  }
+
+  .tracker-card .status-tag.live {
+    background: linear-gradient(90deg, #FF3B3B, #FF8C00) !important;
+    animation: rainbow-bg 2s ease infinite !important;
+    color: #fff !important;
+  }
+
+  .match-skeleton, .chat-skeleton {
+    background: linear-gradient(90deg,
+      rgba(255,59,59,0.12), rgba(255,140,0,0.12), rgba(255,230,0,0.12),
+      rgba(0,200,83,0.12), rgba(41,121,255,0.12), rgba(170,0,255,0.12),
+      rgba(255,59,59,0.12)) !important;
+    background-size: 300% 100% !important;
+    animation: rainbow-bg 2s linear infinite !important;
+  }
+  /* ============================= */
+</style>
+</head>
+<body>
+
+<div class="top-banner">
+  ~ for friends like me who know nothing about soccer but still wants to engage in world cup season ~ i got you babe ~
+</div>
+
+<section class="hero">
+  <img src="logo_desktop.svg" alt="Touchline Gossip" class="logo desktop">
+  <img src="logo_mobile.svg" alt="Touchline Gossip" class="logo mobile">
+  <div class="hero-sub">
+    <img src="star_1.png" alt="" class="sparkle left">
+    <p>Watching world cup but don't know what to comment?</p>
+    <p>Use Touchline Gossip to talk elite trash with your friends ;)</p>
+    <img src="star_1.png" alt="" class="sparkle right">
+  </div>
+</section>
+
+<div class="tracker-cards">
+  <div class="status" id="status"></div>
+
+  <div class="tracker-card">
+    <h2><img src="star_2.png" alt="" class="star"> Hot Chat <img src="star_2.png" alt="" class="star"></h2>
+    <p class="tracker-card-desc">This can be your comments too.</p>
+    <div class="commentary-match-label" id="match-label"></div>
+    <div id="commentary">
+      <div class="chat-skeleton" style="width: 70%;"></div>
+      <div class="chat-skeleton" style="width: 55%; margin-left: auto; margin-right: auto;"></div>
+      <div class="chat-skeleton" style="width: 80%;"></div>
+      <div class="chat-skeleton" style="width: 60%; margin-left: auto; margin-right: auto;"></div>
+    </div>
+  </div>
+
+  <div class="tracker-card">
+    <h2><img src="star_2.png" alt="" class="star"> Matches <img src="star_2.png" alt="" class="star"></h2>
+    <p class="tracker-card-desc">Live scores, who scored, and what's up next.</p>
+    <div id="matches">
+      <div class="match-skeleton"></div>
+      <div class="match-skeleton"></div>
+      <div class="match-skeleton"></div>
+      <div class="match-skeleton"></div>
+      <div class="match-skeleton"></div>
+      <div class="match-skeleton"></div>
+      <div class="match-skeleton"></div>
+      <div class="match-skeleton"></div>
+      <div class="match-skeleton"></div>
+      <div class="match-skeleton"></div>
+    </div>
+  </div>
+</div>
+
+<section class="content">
+  <div class="lineup-section">
+    <div class="lineup-text">
+      <h2 class="lineup-title">
+        <img src="star_2.png" alt="" class="star"> Lineup Board <img src="star_2.png" alt="" class="star">
+      </h2>
+      <p>My free tier API doesn't give me lineup board data,<br class="desktop-break">but honestly babe it doesn't matter.<br class="desktop-break">We here for the face.</p>
+      <p>¯\_(ツ)_/¯</p>
+    </div>
+    <div class="pitch-wrap">
+      <img src="pitch-bg.png" alt="" class="pitch-img">
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <h2 class="display-font">Follow meee @ohhdanqi</h2>
+  <p>I'm Danqi, I'm a New York based designer.</p>
+  <p>I do everything design related.</p>
+  <p>Work with me for your company's branding or we can just cook something cool like this :)</p>
+  <div class="footer-links">
+    <a href="https://x.com/ohhdanqi" target="_blank">X</a><span>|</span><a href="https://www.linkedin.com/in/danqiqian/" target="_blank">LinkedIn</a><span>|</span><a href="https://www.instagram.com/ohhdanqi" target="_blank">Instagram</a>
+  </div>
+</footer>
+
+<div id="formation" style="display:none;"></div>
+
+<script>
+const COMPETITION = 'WC';
+let pollTimer = null;
+let chatTimer = null;
+let _claudeCallCount = 0;
+let tickerTimer = null;
+let scheduleNextCommentary = () => {}; // defined in init()
+
+function setStatus(msg, isError = false) {
+  const el = document.getElementById('status');
+  el.textContent = msg;
+  el.style.color = isError ? '#ff6b6b' : '#9fb3c8';
+}
+
+async function fetchFromAPI(endpoint) {
+  const res = await fetch(`/api/${endpoint}`);
+  if (!res.ok) {
+    const body = await res.text();
+    throw new Error(`${res.status}: ${body}`);
+  }
+  return res.json();
+}
+
+function renderMatches(data) {
+  const container = document.getElementById('matches');
+  let matches = data.matches || [];
+  if (matches.length === 0) {
+    container.innerHTML = '<p class="empty">No matches found</p>';
+    return;
+  }
+
+  const statusRank = (s) => {
+    if (s === 'IN_PLAY' || s === 'PAUSED' || s === 'LIVE') return 0;
+    if (s === 'SCHEDULED' || s === 'TIMED') return 1;
+    return 2;
+  };
+  matches = [...matches].sort((a, b) => {
+    const ra = statusRank(a.status), rb = statusRank(b.status);
+    if (ra !== rb) return ra - rb;
+    const ta = new Date(a.utcDate).getTime(), tb = new Date(b.utcDate).getTime();
+    return ra === 2 ? tb - ta : ta - tb;
+  });
+
+  // Pull the most recently finished match to the front (after any live matches),
+  // so a just-finished game doesn't vanish from the list
+  const liveMatches = matches.filter(m => statusRank(m.status) === 0);
+  const upcomingMatches = matches.filter(m => statusRank(m.status) === 1);
+  const finishedMatches = matches.filter(m => statusRank(m.status) === 2);
+
+  let ordered;
+  if (liveMatches.length > 0) {
+    ordered = [...liveMatches, ...upcomingMatches, ...finishedMatches];
+  } else if (finishedMatches.length > 0) {
+    ordered = [finishedMatches[0], ...upcomingMatches, ...finishedMatches.slice(1)];
+  } else {
+    ordered = [...upcomingMatches, ...finishedMatches];
+  }
+
+  const topMatches = ordered.slice(0, 10);
+
+  container.innerHTML = topMatches.map(m => {
+    const home = m.homeTeam.shortName || m.homeTeam.name;
+    const away = m.awayTeam.shortName || m.awayTeam.name;
+    const hs = m.score.fullTime.home ?? '-';
+    const as = m.score.fullTime.away ?? '-';
+    const status = m.status;
+    const isLive = status === 'IN_PLAY' || status === 'PAUSED' || status === 'LIVE';
+    const date = new Date(m.utcDate);
+    const dateStr = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    const timeStr = date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+    let statusLabel = status === 'FINISHED' ? 'FT'
+                     : isLive ? 'LIVE'
+                     : `${dateStr} ${timeStr}`;
+    const showScorers = (status === 'FINISHED' || isLive) && ((m.score.fullTime.home ?? 0) + (m.score.fullTime.away ?? 0) > 0);
+    const homeCrest = m.homeTeam.crest;
+    const awayCrest = m.awayTeam.crest;
+    return `
+      <div class="match clickable match-fade-in" onclick="loadFormation(${m.id}, '${home.replace(/'/g, "\\'")}', '${away.replace(/'/g, "\\'")}')">
+        <div class="match-row">
+          <div class="teams">
+            ${homeCrest ? `<img src="${homeCrest}" class="crest" alt="">` : ''}${home}
+            <span style="opacity:0.5; margin: 0 4px;">vs</span>
+            ${awayCrest ? `<img src="${awayCrest}" class="crest" alt="">` : ''}${away}
+          </div>
+          <div class="score">${hs} - ${as}</div>
+          <div class="status-tag ${isLive ? 'live' : ''}">${statusLabel}</div>
+        </div>
+        ${showScorers ? `<div class="scorers" id="scorers-${m.id}"></div>` : ''}
+      </div>
+    `;
+  }).join('');
+
+  // Fetch scorer details for matches that have goals
+  topMatches.forEach(m => {
+    const status = m.status;
+    const isLive = status === 'IN_PLAY' || status === 'PAUSED' || status === 'LIVE';
+    const hasGoals = (m.score.fullTime.home ?? 0) + (m.score.fullTime.away ?? 0) > 0;
+    if ((status === 'FINISHED' || isLive) && hasGoals) {
+      loadScorers(m.id);
+    }
+  });
+}
+
+async function loadScorers(matchId) {
+  const el = document.getElementById(`scorers-${matchId}`);
+  if (!el) return;
+  try {
+    const data = await fetchFromAPI(`matches/${matchId}`);
+    const match = data.match || data;
+    const goals = match.goals || [];
+    if (goals.length === 0) {
+      el.innerHTML = '';
+      return;
+    }
+    el.innerHTML = goals.map(g => {
+      const scorer = g.scorer?.name || 'Unknown';
+      const minute = g.minute != null ? `${g.minute}'` : '';
+      const teamSide = g.team?.id === undefined ? '' : '';
+      const isPenalty = g.type === 'PENALTY' ? ' (pen)' : g.type === 'OWN' ? ' (OG)' : '';
+      return `<span class="goal-chip">⚽ ${scorer} ${minute}${isPenalty}</span>`;
+    }).join('');
+  } catch (e) {
+    el.innerHTML = '';
+  }
+}
+
+
+const FORMATION_LAYOUTS = {
+  '4-3-3': [
+    {x:50,y:5},
+    {x:15,y:25},{x:38,y:20},{x:62,y:20},{x:85,y:25},
+    {x:25,y:50},{x:50,y:48},{x:75,y:50},
+    {x:20,y:80},{x:50,y:85},{x:80,y:80}
+  ],
+  '4-4-2': [
+    {x:50,y:5},
+    {x:15,y:25},{x:38,y:20},{x:62,y:20},{x:85,y:25},
+    {x:15,y:55},{x:38,y:50},{x:62,y:50},{x:85,y:55},
+    {x:35,y:85},{x:65,y:85}
+  ],
+  '3-5-2': [
+    {x:50,y:5},
+    {x:25,y:22},{x:50,y:18},{x:75,y:22},
+    {x:10,y:50},{x:32,y:48},{x:50,y:45},{x:68,y:48},{x:90,y:50},
+    {x:35,y:85},{x:65,y:85}
+  ],
+  '4-2-3-1': [
+    {x:50,y:5},
+    {x:15,y:25},{x:38,y:20},{x:62,y:20},{x:85,y:25},
+    {x:35,y:42},{x:65,y:42},
+    {x:20,y:68},{x:50,y:70},{x:80,y:68},
+    {x:50,y:90}
+  ],
+  'default': [
+    {x:50,y:5},
+    {x:15,y:25},{x:38,y:20},{x:62,y:20},{x:85,y:25},
+    {x:25,y:50},{x:50,y:48},{x:75,y:50},
+    {x:20,y:80},{x:50,y:85},{x:80,y:80}
+  ]
+};
+
+function getInitials(name) {
+  if (!name) return '?';
+  const parts = name.trim().split(' ');
+  if (parts.length === 1) return parts[0].slice(0,2).toUpperCase();
+  return (parts[0][0] + parts[parts.length-1][0]).toUpperCase();
+}
+
+function renderPitch(homeName, awayName, homeLineup, awayLineup, homeFormation, awayFormation) {
+  const homeLayout = FORMATION_LAYOUTS[homeFormation] || FORMATION_LAYOUTS['default'];
+  const awayLayout = FORMATION_LAYOUTS[awayFormation] || FORMATION_LAYOUTS['default'];
+
+  const homeTokens = homeLineup.slice(0, 11).map((p, i) => {
+    const pos = homeLayout[i] || {x:50, y:50};
+    const top = 95 - (pos.y / 100 * 45);
+    return `
+      <div class="player-token" style="left:${pos.x}%; top:${top}%;">
+        <div class="player-avatar">${getInitials(p.name)}</div>
+        <div class="player-name">${p.name || ''}</div>
+      </div>
+    `;
+  }).join('');
+
+  const awayTokens = awayLineup.slice(0, 11).map((p, i) => {
+    const pos = awayLayout[i] || {x:50, y:50};
+    const top = 5 + (pos.y / 100 * 45);
+    return `
+      <div class="player-token" style="left:${pos.x}%; top:${top}%;">
+        <div class="player-avatar away">${getInitials(p.name)}</div>
+        <div class="player-name">${p.name || ''}</div>
+      </div>
+    `;
+  }).join('');
+
+  return `
+    <div class="pitch">
+      <div class="pitch-half-label away">${awayName} (${awayFormation})</div>
+      ${awayTokens}
+      ${homeTokens}
+      <div class="pitch-half-label home">${homeName} (${homeFormation})</div>
+    </div>
+    <div class="formation-legend">
+      <span><span class="legend-dot"></span>${homeName}</span>
+      <span><span class="legend-dot away"></span>${awayName}</span>
+    </div>
+  `;
+}
+
+async function loadFormation(matchId, homeName, awayName) {
+  const container = document.getElementById('formation');
+  container.innerHTML = '<p class="empty">Loading lineups...</p>';
+  container.closest('.tracker-card')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+  try {
+    const data = await fetchFromAPI(`matches/${matchId}`);
+    const match = data.match || data;
+
+    const homeLineup = match.homeTeam?.lineup;
+    const awayLineup = match.awayTeam?.lineup;
+    const homeFormation = match.homeTeam?.formation || 'default';
+    const awayFormation = match.awayTeam?.formation || 'default';
+
+    if (!homeLineup || !awayLineup || homeLineup.length === 0 || awayLineup.length === 0) {
+      container.innerHTML = `<p class="empty">Lineup data not available for ${homeName} vs ${awayName} (often not provided on free tier, or match hasn't started)</p>`;
+      return;
+    }
+
+    container.innerHTML = renderPitch(homeName, awayName, homeLineup, awayLineup, homeFormation, awayFormation);
+  } catch (e) {
+    container.innerHTML = '';
+    console.error(e);
+  }
+}
+
+// Kayla: always premade, flirty/playful lines
+const KAYLA_LINES = [
+  "#11 really did not need to be that fine",
+  "the captain's hair flip alone deserves a card",
+  "that through ball was basically a love letter",
+  "number 9 can shoot and look that good unfair",
+  "okay that goalkeeper dive was kinda cinematic",
+  "whoever designed these jerseys deserves a raise",
+  "#7 keeps looking at the camera and i'm into it",
+  "not me getting invested in this so fast",
+  "someone tell #10 i said hi",
+  "okay but the post match interviews are the real content"
+];
+
+// Kayla: lines for when no game is currently live or starting soon
+const KAYLA_WAITING_LINES = [
+  "waiting for the next match like it's a date",
+  "refreshing the schedule every five minutes, no shame",
+  "i miss them already, who's playing next",
+  "intermission is the worst part of any date tbh",
+  "okay but who do we have a crush on next match",
+  "the wait before kickoff hits different every time",
+  "calendar's open, counting down to the next one",
+  "nothing on rn but the anticipation is its own vibe",
+  "between games is when i miss the drama most",
+  "saving my energy for whoever's up next"
+];
+
+// Mia: short reaction bursts
+const MIA_LINES = [
+  "!!!!! gee",
+  "wait what",
+  "no because why",
+  "lol ok",
+  "i'm screaming",
+  "not like this",
+  "bestie what",
+  "oh that's rough",
+  "okay but why tho",
+  "we are not okay"
+];
+
+// Kayla/Mia reply lines triggered after Ashley speaks — creates back-and-forth
+const ASHLEY_REPLY_LINES = [
+  { name: 'kayla', line: "ashley with the receipts as always" },
+  { name: 'mia', line: "okay ashley we get it you did your homework" },
+  { name: 'kayla', line: "ash how do you even know all this" },
+  { name: 'mia', line: "ashley said what she said" },
+  { name: 'kayla', line: "ashley carrying the group chat again" },
+  { name: 'mia', line: "ash literally never misses" },
+  { name: 'kayla', line: "okay i didn't know that but now i'm invested" },
+  { name: 'mia', line: "ashley doing the most as per usual" }
+];
+
+let _lastWasAshley = false;
+
+// Ashley: fallback facts if Claude is unavailable
+const ASHLEY_FALLBACK_LINES = [
+  "brazil hasn't lost a world cup opener since 2006",
+  "messi's last world cup goal was in the final",
+  "germany and argentina have met in three finals",
+  "mbappe scored a hat trick in the 2022 final",
+  "south korea upset germany in 2018 group stage",
+  "spain won the world cup once back in 2010"
+];
+
+// Ashley: real 2026 World Cup facts to seed chat history on page load
+const ASHLEY_2026_FACTS = [
+  "fyi 48 teams in the world cup for the first time ever this year",
+  "btw mexico opened the tournament against south africa at estadio azteca this year",
+  "fyi the final is july 19 at metlife stadium in new jersey this year",
+  "btw 12 groups of four, top two plus best third-placed teams advance this year",
+  "fyi first world cup ever hosted by three countries this year",
+  "btw 104 matches total, 40 more than 2022 this year",
+  "fyi argentina enters as defending champions with messi leading again this year",
+  "btw coldplay is doing the halftime show at the final this year",
+  "fyi 16 host cities across the us, mexico, and canada this year",
+  "btw round of 32 kicks off the knockout stage for the first time this year"
+];
+
+async function getCommentary(matchSummary, gameState, lineCount = 5) {
+  try {
+    const res = await fetch('/api/commentary', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ matchSummary, gameState, lineCount })
+    });
+    const data = await res.json();
+    if (data.content && data.content[0] && data.content[0].text) {
+      return data.content[0].text;
+    }
+    return null;
+  } catch (e) {
+    console.error('Commentary error:', e);
+    return null;
+  }
+}
+
+async function getDynamicSeedFacts() {
+  const facts = [];
+  try {
+    const data = await fetchFromAPI(`competitions/${COMPETITION}/standings`);
+    const groups = data.standings || [];
+    const shuffled = [...groups].sort(() => Math.random() - 0.5).slice(0, 2);
+    for (const g of shuffled) {
+      const table = g.table || [];
+      if (table.length > 0) {
+        const leader = table[0];
+        const teamName = leader.team?.shortName || leader.team?.name;
+        const groupName = g.group ? g.group.replace('GROUP_', 'group ').toLowerCase() : '';
+        if (teamName && groupName) {
+          facts.push(`fyi ${teamName.toLowerCase()} is topping ${groupName} this year`);
+        }
+        if (table.length > 1 && leader.points === table[1].points) {
+          const second = table[1].team?.shortName || table[1].team?.name;
+          if (second) {
+            facts.push(`btw ${teamName.toLowerCase()} and ${second.toLowerCase()} are tied on points in ${groupName} this year`);
+          }
+        }
+      }
+    }
+  } catch (e) {
+    console.error('Could not fetch standings for seed facts:', e);
+  }
+  return facts;
+}
+
+const AVATAR_COLORS = {
+  ashley: '#e91e8c',
+  kayla: '#ff6ec7',
+  mia: '#9c4dcc'
+};
+
+const KAYLA_DISPLAY_NAMES = ['Kayla', 'KK', 'Miquela', 'Riri', 'Coco'];
+
+function appendChatLine(l) {
+  const container = document.getElementById('commentary');
+  if (!container) return;
+  const skeletons = container.querySelectorAll('.chat-skeleton');
+  if (skeletons.length > 0) {
+    skeletons.forEach(s => s.remove());
+  }
+  const name = (l.name || '').toLowerCase();
+  const color = AVATAR_COLORS[name] || 'var(--pink-deep)';
+  let displayName = name.charAt(0).toUpperCase() + name.slice(1);
+  if (name === 'kayla') {
+    displayName = KAYLA_DISPLAY_NAMES[Math.floor(Math.random() * KAYLA_DISPLAY_NAMES.length)];
+  }
+  const html = `
+    <div class="chat-line">
+      <span class="chat-name" style="color: ${color};">${displayName}</span>
+      <span class="chat-text">${l.line || ''}</span>
+    </div>
+  `;
+  const newGroup = document.createElement('div');
+  newGroup.className = 'commentary-bubble';
+  newGroup.innerHTML = html;
+  container.appendChild(newGroup);
+  container.scrollTop = container.scrollHeight;
+}
+
+async function loadCommentary(matchesData) {
+  const container = document.getElementById('commentary');
+  if (!matchesData) return;
+  const matches = matchesData.matches || [];
+
+  const live = matches.filter(m => m.status === 'IN_PLAY' || m.status === 'PAUSED' || m.status === 'LIVE');
+  const finished = matches.filter(m => m.status === 'FINISHED')
+    .sort((a, b) => new Date(b.utcDate) - new Date(a.utcDate));
+
+  // Only proceed if there's a live game OR a recently finished one (recap)
+  const pick = live[0] || finished[0] || null;
+  if (!pick) return;
+
+  const isLive = live.includes(pick);
+  const isFinished = finished.includes(pick);
+
+  // Don't call Claude for upcoming-only situations
+  if (!isLive && !isFinished) return;
+
+  const home = pick.homeTeam.shortName || pick.homeTeam.name;
+  const away = pick.awayTeam.shortName || pick.awayTeam.name;
+  const hs = pick.score.fullTime.home ?? 0;
+  const as_ = pick.score.fullTime.away ?? 0;
+  const label = `${home} vs ${away}`;
+
+  let summary;
+  const leader = hs > as_ ? home : as_ > hs ? away : null;
+
+  if (isLive) {
+    summary = `GAME IS LIVE: ${home} vs ${away}, current score ${hs}-${as_}.${leader ? ` ${leader} is leading.` : ' tied.'}`;
+  } else {
+    summary = `GAME JUST FINISHED: ${home} vs ${away} final score ${hs}-${as_}.${leader ? ` ${leader} won.` : ' it was a draw.'}`;
+  }
+
+  // Always enrich with detailed match data from football-data.org
+  try {
+    const data = await fetchFromAPI(`matches/${pick.id}`);
+    const match = data.match || data;
+
+    if (isLive && match.minute != null) {
+      summary += ` (background context, don't mention this directly: minute ${match.minute})`;
+    }
+
+    const goals = match.goals || [];
+    if (goals.length > 0) {
+      const sorted = [...goals].sort((a, b) => (a.minute ?? 0) - (b.minute ?? 0));
+      const goalLines = sorted.map((g, i) => {
+        const scorer = g.scorer?.name || 'unknown';
+        const min = g.minute != null ? `${g.minute}'` : '';
+        const team = g.team?.name || '';
+        return `${i+1}. ${scorer} (${team}) ${min}`;
+      }).join(', ');
+      summary += ` Goals: ${goalLines}.`;
+    }
+
+    const bookings = match.bookings || [];
+    if (bookings.length > 0) {
+      const b = bookings[bookings.length - 1];
+      const card = b.card === 'YELLOW_CARD' ? 'yellow card' : b.card === 'RED_CARD' ? 'red card' : 'card';
+      const min = b.minute != null ? ` at ${b.minute}'` : '';
+      summary += ` Latest card: ${b.player?.name || 'a player'} got a ${card}${min}.`;
+    }
+
+    const subs = match.substitutions || [];
+    if (subs.length > 0) {
+      const s = subs[subs.length - 1];
+      if (s.playerOut?.name && s.playerIn?.name) {
+        summary += ` Latest sub: ${s.playerIn.name} replaced ${s.playerOut.name}.`;
+      }
+    }
+  } catch (e) {
+    console.error('Could not fetch match details:', e);
+  }
+
+  // Enrich with recent form for both teams
+  try {
+    const [homeForm, awayForm] = await Promise.all([
+      fetchFromAPI(`teams/${pick.homeTeam.id}/matches?status=FINISHED&limit=3`),
+      fetchFromAPI(`teams/${pick.awayTeam.id}/matches?status=FINISHED&limit=3`)
+    ]);
+
+    const getLastResult = (data, teamName, teamId) => {
+      const recent = (data.matches || [])
+        .filter(m => m.id !== pick.id)
+        .sort((a, b) => new Date(b.utcDate) - new Date(a.utcDate));
+      const last = recent[0];
+      if (!last) return null;
+      const isHome = last.homeTeam.id === teamId;
+      const h = last.homeTeam.shortName || last.homeTeam.name;
+      const a = last.awayTeam.shortName || last.awayTeam.name;
+      const hs2 = last.score.fullTime.home ?? 0;
+      const as2 = last.score.fullTime.away ?? 0;
+      const teamScore = isHome ? hs2 : as2;
+      const oppScore = isHome ? as2 : hs2;
+      const opp = isHome ? a : h;
+      const result = teamScore > oppScore ? 'won' : teamScore < oppScore ? 'lost' : 'drew';
+      return `${teamName} ${result} ${teamScore}-${oppScore} vs ${opp} in their last game`;
+    };
+
+    const homeResult = getLastResult(homeForm, home, pick.homeTeam.id);
+    const awayResult = getLastResult(awayForm, away, pick.awayTeam.id);
+    if (homeResult) summary += ` Recent form: ${homeResult}.`;
+    if (awayResult) summary += ` ${awayResult}.`;
+  } catch (e) {
+    console.error('Could not fetch team form:', e);
+  }
+
+  const labelEl = document.getElementById('match-label');
+  if (labelEl) {
+    labelEl.textContent = isLive ? label : '';
+  }
+
+  const gameState = isLive ? 'live' : 'finished';
+  const lineCount = _claudeCallCount === 0 ? 5 : 10;
+  _claudeCallCount++;
+  const raw = await getCommentary(summary, gameState, lineCount);
+
+  if (raw) {
+    const summaryDigits = new Set((summary.match(/\d+/g) || []));
+
+    function isValidLine(line) {
+      const l = line.trim().toLowerCase();
+      return l.length > 0 && l.length < 80 &&
+        !l.includes('{') && !l.includes('[') &&
+        !l.includes('"name"') &&
+        !l.includes('right now') &&
+        !l.startsWith('this ') &&
+        l.split(/[.!?]/).filter(Boolean).length <= 1 &&
+        !(l.match(/\d+/g) || []).some(d => !summaryDigits.has(d));
+    }
+
+    try {
+      const cleaned = raw.replace(/```json|```/g, '').trim();
+      const lines = JSON.parse(cleaned);
+      if (Array.isArray(lines)) {
+        lines
+          .map(l => (typeof l === 'string' ? l.toLowerCase().replace(/[.!?]+$/, '').trim() : ''))
+          .filter(isValidLine)
+          .forEach(line => window._chatQueue.push({ name: 'ashley', line }));
+      }
+    } catch (e) {
+      // Fallback: try as single line
+      const single = raw.replace(/```/g, '').replace(/^["']|["']$/g, '').trim().toLowerCase();
+      if (isValidLine(single)) {
+        window._chatQueue.push({ name: 'ashley', line: single.replace(/[.!?]+$/, '') });
+      }
+    }
+  }
+}
+
+// Fast ticker: appends one chat line at a time, every ~1.5s
+const recentLines = [];
+
+function pickNonRepeating(pool) {
+  // Avoid the last 4 used lines from this pool if possible
+  const available = pool.filter(l => !recentLines.includes(l));
+  const choice = available.length > 0
+    ? available[Math.floor(Math.random() * available.length)]
+    : pool[Math.floor(Math.random() * pool.length)];
+  recentLines.push(choice);
+  if (recentLines.length > 8) recentLines.shift();
+  return choice;
+}
+
+function tickChat() {
+  let line;
+
+  // If last line was Ashley, sometimes fire a reply first
+  if (_lastWasAshley && Math.random() < 0.4) {
+    line = ASHLEY_REPLY_LINES[Math.floor(Math.random() * ASHLEY_REPLY_LINES.length)];
+    _lastWasAshley = false;
+    appendChatLine(line);
+    return;
+  }
+
+  // Ashley only speaks from queue (Claude/API-sourced facts)
+  const queueChance = window._hasLiveGame ? 0.65 : 0.45;
+  if (window._chatQueue.length > 0 && Math.random() < queueChance) {
+    line = window._chatQueue.shift();
+    _lastWasAshley = (line.name === 'ashley');
+  } else if (window._hasLiveOrSoonGame === false) {
+    // No game on: Kayla waiting lines, occasional Ashley 2026 fact
+    if (Math.random() < 0.25) {
+      line = { name: 'ashley', line: ASHLEY_2026_FACTS[Math.floor(Math.random() * ASHLEY_2026_FACTS.length)] };
+      _lastWasAshley = true;
+    } else {
+      line = { name: 'kayla', line: pickNonRepeating(KAYLA_WAITING_LINES) };
+      _lastWasAshley = false;
+    }
+  } else {
+    // Game on or soon: Kayla/Mia random banter
+    const speaker = Math.random() < 0.75 ? 'kayla' : 'mia';
+    const pool = speaker === 'kayla' ? KAYLA_LINES : MIA_LINES;
+    line = { name: speaker, line: pickNonRepeating(pool) };
+    _lastWasAshley = false;
+  }
+  appendChatLine(line);
+}
+
+async function loadData() {
+  try {
+    setStatus('');
+
+    const matchesData = await fetchFromAPI(`competitions/${COMPETITION}/matches`);
+    renderMatches(matchesData);
+
+    const matches = matchesData.matches || [];
+    const live = matches.filter(m => m.status === 'IN_PLAY' || m.status === 'PAUSED' || m.status === 'LIVE');
+    const upcoming = matches.filter(m => m.status === 'SCHEDULED' || m.status === 'TIMED')
+      .sort((a, b) => new Date(a.utcDate) - new Date(b.utcDate));
+    window._hasLiveGame = live.length > 0;
+    window._hasLiveOrSoonGame = live.length > 0 || (upcoming.length > 0 && (new Date(upcoming[0].utcDate) - Date.now()) < 2 * 60 * 60 * 1000);
+
+    // Detect score change on live matches → immediate Claude call + reaction
+    if (live.length > 0 && window._lastMatchesData) {
+      const prevMatches = window._lastMatchesData.matches || [];
+      for (const m of live) {
+        const prev = prevMatches.find(p => p.id === m.id);
+        if (prev) {
+          const prevTotal = (prev.score.fullTime.home ?? 0) + (prev.score.fullTime.away ?? 0);
+          const currTotal = (m.score.fullTime.home ?? 0) + (m.score.fullTime.away ?? 0);
+          if (currTotal > prevTotal) {
+            // Goal scored! Fire immediate reactions
+            const home = m.homeTeam.shortName || m.homeTeam.name;
+            const away = m.awayTeam.shortName || m.awayTeam.name;
+            const hs = m.score.fullTime.home;
+            const as_ = m.score.fullTime.away;
+            console.log(`GOAL! ${home} ${hs}-${as_} ${away}`);
+
+            // Burst of immediate excited reactions from all the girls
+            const goalReactions = [
+              { name: 'mia', line: '!!!!!!!!!!' },
+              { name: 'kayla', line: 'WAIT WAIT WAIT WAIT' },
+              { name: 'mia', line: 'no no no no no' },
+              { name: 'kayla', line: 'i am NOT okay rn' },
+              { name: 'mia', line: 'screaming crying throwing up' },
+            ];
+            // Pick 2-3 reactions and stagger them into the front of queue
+            const picks = goalReactions.sort(() => Math.random() - 0.5).slice(0, 3);
+            picks.reverse().forEach(r => window._chatQueue.unshift(r));
+
+            // Interrupt normal schedule — call Claude immediately with new score
+            if (chatTimer) { clearTimeout(chatTimer); chatTimer = null; }
+            loadCommentary(matchesData).then(() => scheduleNextCommentary());
+            break;
+          }
+        }
+      }
+    }
+
+    window._lastMatchesData = matchesData;
+
+    if (!window._hasLiveGame) {
+      const labelEl = document.getElementById('match-label');
+      if (labelEl) labelEl.textContent = '';
+    }
+
+    setStatus('');
+  } catch (e) {
+    setStatus('');
+    console.error(e);
+  }
+}
+
+function init() {
+  if (pollTimer) clearInterval(pollTimer);
+  pollTimer = setInterval(() => {
+    loadData();
+    // Reschedule at faster rate if game is live
+    if (window._hasLiveGame && pollTimer) {
+      clearInterval(pollTimer);
+      pollTimer = setInterval(() => loadData(), 30000);
+    }
+  }, 60000);
+
+  window._chatQueue = [];
+
+  // Build seed queue once matches data is available, tailored to game status
+  loadData().then(() => {
+    const hasLiveOrSoonGame = window._hasLiveOrSoonGame;
+    const hasLiveGame = window._hasLiveGame;
+
+    if (!hasLiveOrSoonGame) {
+      // No game: recap last finished match + standings + Kayla waiting lines
+      const labelEl = document.getElementById('match-label');
+      if (labelEl) labelEl.textContent = '';
+
+      const matches = window._lastMatchesData?.matches || [];
+      const finished = matches.filter(m => m.status === 'FINISHED')
+        .sort((a, b) => new Date(b.utcDate) - new Date(a.utcDate));
+      const lastGame = finished[0];
+
+      if (lastGame) {
+        const home = lastGame.homeTeam.shortName || lastGame.homeTeam.name;
+        const away = lastGame.awayTeam.shortName || lastGame.awayTeam.name;
+        const hs = lastGame.score.fullTime.home ?? 0;
+        const as_ = lastGame.score.fullTime.away ?? 0;
+        const winner = hs > as_ ? home : as_ > hs ? away : null;
+        const result = winner ? `${winner} won ${Math.max(hs,as_)}-${Math.min(hs,as_)}` : `${home} and ${away} drew ${hs}-${as_}`;
+
+        // Seed Ashley with recap lines about the last game
+        const recapLines = [
+          `${result} in the last game`,
+          `${home} vs ${away} finished ${hs}-${as_}`,
+          winner ? `${winner} took all three points` : `${home} and ${away} split the points`
+        ];
+
+        // Try to enrich with scorer names
+        fetchFromAPI(`matches/${lastGame.id}`).then(data => {
+          const match = data.match || data;
+          const goals = match.goals || [];
+          if (goals.length > 0) {
+            const sorted = [...goals].sort((a, b) => (a.minute ?? 0) - (b.minute ?? 0));
+            sorted.slice(0, 2).forEach(g => {
+              const scorer = g.scorer?.name;
+              const min = g.minute != null ? `${g.minute}'` : '';
+              if (scorer) {
+                recapLines.push(`${scorer.toLowerCase()} scored at ${min}`);
+              }
+            });
+          }
+          // Push recap lines into queue
+          recapLines.forEach((line, i) => {
+            window._chatQueue.splice(i * 2, 0, { name: 'ashley', line });
+          });
+        }).catch(() => {
+          // Fallback without scorer details
+          recapLines.forEach((line, i) => {
+            window._chatQueue.splice(i * 2, 0, { name: 'ashley', line });
+          });
+        });
+      }
+
+      // Kayla waiting lines throughout
+      window._chatQueue.push(
+        { name: 'kayla', line: KAYLA_WAITING_LINES[Math.floor(Math.random() * KAYLA_WAITING_LINES.length)] },
+        { name: 'kayla', line: KAYLA_WAITING_LINES[Math.floor(Math.random() * KAYLA_WAITING_LINES.length)] }
+      );
+
+      // Standings facts also queued
+      getDynamicSeedFacts().then(facts => {
+        facts.slice(0, 2).forEach(fact => {
+          window._chatQueue.push({ name: 'ashley', line: fact });
+        });
+      });
+    } else if (hasLiveGame) {
+      // Live game: just 1 seed fact to cover load time, Claude takes over immediately
+      const randomFact = ASHLEY_2026_FACTS[Math.floor(Math.random() * ASHLEY_2026_FACTS.length)];
+      window._chatQueue.push(
+        { name: 'kayla', line: KAYLA_LINES[Math.floor(Math.random() * KAYLA_LINES.length)] },
+        { name: 'ashley', line: randomFact },
+        { name: 'mia', line: MIA_LINES[Math.floor(Math.random() * MIA_LINES.length)] }
+      );
+      // 1 standings fact max when live — keep it context-setting only
+      getDynamicSeedFacts().then(facts => {
+        if (facts.length > 0) {
+          window._chatQueue.splice(1, 0, { name: 'ashley', line: facts[0] });
+        }
+      });
+    } else {
+      // Game soon but not live: facts + waiting mix
+      const shuffledFacts = [...ASHLEY_2026_FACTS].sort(() => Math.random() - 0.5);
+      window._chatQueue.push(
+        { name: 'ashley', line: shuffledFacts[0] },
+        { name: 'kayla', line: KAYLA_WAITING_LINES[Math.floor(Math.random() * KAYLA_WAITING_LINES.length)] },
+        { name: 'ashley', line: shuffledFacts[1] }
+      );
+    }
+
+    // Start Claude scheduler now that we know game state
+    if (chatTimer) clearTimeout(chatTimer);
+    scheduleNextCommentary();
+  });
+
+  // Only call Claude when there's a live game — no point otherwise
+  setTimeout(() => {
+    if (window._hasLiveGame) loadCommentary(window._lastMatchesData);
+  }, 1500);
+
+  // Adaptive Claude frequency — only fires when game is live
+  window._sessionStart = Date.now();
+  scheduleNextCommentary = function() {
+    if (!window._hasLiveGame) {
+      chatTimer = null;
+      return;
+    }
+    const elapsed = Date.now() - window._sessionStart;
+    if (elapsed >= 5 * 60000) {
+      chatTimer = null;
+      return;
+    }
+    const delay = elapsed < 3 * 60000 ? 20000 : 40000;
+    chatTimer = setTimeout(() => {
+      if (window._hasLiveGame) loadCommentary(window._lastMatchesData);
+      scheduleNextCommentary();
+    }, delay);
+  }
+
+  // Fast ticker: new chat line every ~1.5s, starts immediately to show seeded history
+  if (tickerTimer) clearInterval(tickerTimer);
+  setTimeout(() => {
+    tickerTimer = setInterval(tickChat, 2000);
+  }, 500);
+
+  // Pause Claude calls + ticker when tab is hidden to save API usage
+  function pauseChat() {
+    if (chatTimer) { clearTimeout(chatTimer); chatTimer = null; }
+    if (tickerTimer) { clearInterval(tickerTimer); tickerTimer = null; }
+  }
+  function resumeChat() {
+    if (document.hidden) return;
+    const elapsed = Date.now() - window._sessionStart;
+    if (!chatTimer && elapsed < 5 * 60000) scheduleNextCommentary();
+    if (!tickerTimer) tickerTimer = setInterval(tickChat, 2000);
+  }
+
+  if (!window._visibilityHandlerAdded) {
+    window._visibilityHandlerAdded = true;
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) pauseChat();
+      else resumeChat();
+    });
+    // iOS Safari: screen lock / app backgrounding can also fire these
+    window.addEventListener('pagehide', pauseChat);
+    window.addEventListener('blur', pauseChat);
+    window.addEventListener('focus', resumeChat);
+  }
+}
+
+init();
+</script>
+
+</body>
+</html>

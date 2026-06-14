@@ -1,0 +1,12 @@
+{
+  "name": "touchline-gossip",
+  "version": "1.0.0",
+  "description": "World Cup 2026 tracker with AI-powered group chat commentary",
+  "main": "proxy-server.js",
+  "scripts": {
+    "start": "node proxy-server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
