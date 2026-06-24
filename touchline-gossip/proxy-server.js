@@ -64,6 +64,35 @@ const server = http.createServer((req, res) => {
       const { matchSummary, gameState, lineCount = 5 } = JSON.parse(body);
 
       const isReply = gameState === 'reply';
+
+      // Abuse guard: reject off-topic user messages before hitting Claude
+      if (isReply) {
+        const userMsg = matchSummary.split('A friend just said in the group chat: "')[1]?.replace('"', '').toLowerCase() || '';
+        const offTopicPatterns = [
+          /write (me |a |some )?(code|function|script|program|app|class|api|sql|query|html|css|python|javascript)/i,
+          /help (me )?(with |build |create |make |write |fix |debug )/i,
+          /\b(translate|summarize|essay|email|cover letter|resume|cv|recipe)\b/i,
+          /\b(how (do|to) (make|build|create|write|code|install|set up))\b/i,
+          /\b(what is|explain|define|tell me about)\b(?!.*(goal|game|match|score|player|team|world cup|soccer|football))/i,
+          /\b(ignore|forget|disregard).*(prompt|instruction|rule|system)/i,
+          // Inappropriate/harmful content
+          /\b(porn|pornography|nude|naked|sex|sexual|xxx|nsfw|hentai|explicit)\b/i,
+          /\b(pedophil|pedo|child abuse|cp |child porn|minor|underage).*(sex|abuse|explicit|nude|naked)/i,
+          /\b(rape|molest|assault|abuse)\b/i,
+          /\b(kill|murder|bomb|terrorist|shoot|weapon|gun|knife).*(how|make|build|get|buy)\b/i,
+          /\b(drug|cocaine|heroin|meth|fentanyl).*(buy|sell|make|get)\b/i,
+        ];
+        const isOffTopic = offTopicPatterns.slice(0, 6).some(p => p.test(userMsg));
+        const isInappropriate = offTopicPatterns.slice(6).some(p => p.test(userMsg));
+        const rejectMsg = isInappropriate
+          ? JSON.stringify(["that's not okay here", "yeah we don't do that babe"])
+          : JSON.stringify(["bestie this is a world cup chat not google", "we only talk football here babe 💅"]);
+        if (isOffTopic || isInappropriate) {
+          res.writeHead(200, { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' });
+          res.end(JSON.stringify({ content: [{ type: 'text', text: rejectMsg }] }));
+          return;
+        }
+      }
       const situationLine = gameState === 'live'
         ? "there is a game happening RIGHT NOW and you're watching it live"
         : gameState === 'finished'
