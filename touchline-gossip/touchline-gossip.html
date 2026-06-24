@@ -144,7 +144,7 @@
   }
 
   .lineup-title .star {
-    width: 0.48em;
+    width: clamp(20px, 2.5vw, 32px);
     height: auto;
     display: inline-block;
   }
@@ -309,7 +309,7 @@
     margin-bottom: 30px;
   }
   .tracker-card h2 .star {
-    width: 0.48em;
+    width: clamp(20px, 2.5vw, 32px);
     height: auto;
     display: inline-block;
     -webkit-text-stroke: 0;
@@ -393,7 +393,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 72px;
+    gap: 24px;
   }
   .score-hero-crest {
     width: 80px;
@@ -402,8 +402,7 @@
     border-radius: 5px;
   }
   .score-hero-center {
-    flex: 1;
-    max-width: 280px;
+    display: contents;
   }
   .score-hero-label {
     font-size: 0.85rem;
@@ -421,7 +420,6 @@
     -webkit-text-stroke: 10px var(--pink-deep);
     paint-order: stroke fill;
     letter-spacing: -4px;
-    margin-bottom: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -429,7 +427,7 @@
     flex-wrap: nowrap;
   }
   .score-hero-number img.star {
-    width: 0.48em;
+    width: clamp(20px, 2.5vw, 32px);
     height: auto;
     flex-shrink: 0;
     -webkit-text-stroke: 0;
