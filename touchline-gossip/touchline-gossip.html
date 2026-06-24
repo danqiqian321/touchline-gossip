@@ -324,6 +324,119 @@
       gap: 16px;
     }
   }
+  .score-hero-crest-skeleton {
+    width: 80px;
+    height: 60px;
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #ffffff, #ffe6f1, #ffffff);
+    background-size: 300% 300%;
+    animation: skeleton-shimmer 4s ease-in-out infinite;
+  }
+  .score-hero-crest-skeleton::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(233,30,140,0.12), transparent);
+    transform: translateX(-100%);
+    animation: skeleton-sweep 2.2s ease-in-out infinite;
+  }
+  .score-hero-score-skeleton {
+    width: 140px;
+    height: 72px;
+    margin: 0 auto 10px;
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #ffffff, #ffe6f1, #ffffff);
+    background-size: 300% 300%;
+    animation: skeleton-shimmer 4s ease-in-out infinite;
+  }
+  .score-hero-score-skeleton::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(233,30,140,0.12), transparent);
+    transform: translateX(-100%);
+    animation: skeleton-sweep 2.2s ease-in-out infinite;
+  }
+  .score-hero-name-skeleton {
+    width: 180px;
+    height: 18px;
+    margin: 0 auto;
+    border-radius: 6px;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #ffffff, #ffe6f1, #ffffff);
+    background-size: 300% 300%;
+    animation: skeleton-shimmer 4s ease-in-out infinite 0.3s;
+  }
+  .score-hero-name-skeleton::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(233,30,140,0.12), transparent);
+    transform: translateX(-100%);
+    animation: skeleton-sweep 2.2s ease-in-out infinite 0.3s;
+  }
+  /* Score Hero */
+  .score-hero {
+    max-width: 1100px;
+    margin: 0 auto 24px;
+    background: var(--pink-pale);
+    border-radius: 18px;
+    padding: 28px 32px;
+    text-align: center;
+  }
+  .score-hero-label {
+    font-size: 0.8rem;
+    color: var(--pink-hot);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    opacity: 0.7;
+  }
+  .score-hero-teams {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+  }
+  .score-hero-crest {
+    width: 80px;
+    height: 60px;
+    object-fit: contain;
+  }
+  .score-hero-center {
+    flex: 1;
+    max-width: 280px;
+  }
+  .score-hero-number {
+    font-size: 72px;
+    line-height: 1;
+    color: var(--pink-pale);
+    -webkit-text-stroke: 10px var(--pink-deep);
+    paint-order: stroke fill;
+    letter-spacing: 8px;
+    margin-bottom: 10px;
+  }
+  .score-hero-names {
+    font-size: 0.9rem;
+    color: var(--pink-deep);
+    font-weight: 600;
+  }
+  .score-hero-names span {
+    opacity: 0.5;
+    font-weight: 400;
+    margin: 0 6px;
+  }
+  @media (max-width: 700px) {
+    .score-hero-crest { width: 56px; height: 42px; }
+    .score-hero-number { font-size: 52px; }
+    .score-hero-teams { gap: 16px; }
+  }
   .tracker-card-desc {
     text-align: center;
     color: var(--pink-hot);
@@ -688,6 +801,22 @@
 <div class="tracker-cards">
   <div class="status" id="status"></div>
 
+  <div class="score-hero" id="score-hero">
+    <div class="score-hero-label" id="score-hero-label">&nbsp;</div>
+    <div class="score-hero-teams">
+      <div class="score-hero-team">
+        <div class="score-hero-crest-skeleton"></div>
+      </div>
+      <div class="score-hero-center">
+        <div class="score-hero-score-skeleton"></div>
+        <div class="score-hero-name-skeleton"></div>
+      </div>
+      <div class="score-hero-team">
+        <div class="score-hero-crest-skeleton"></div>
+      </div>
+    </div>
+  </div>
+
   <div class="tracker-card">
     <h2><img src="star_2.png" alt="" class="star"> Hot Chat <img src="star_2.png" alt="" class="star"></h2>
     <p class="tracker-card-desc">This can be your comments too.</p>
@@ -774,6 +903,37 @@ function renderMatches(data) {
   if (matches.length === 0) {
     container.innerHTML = '<p class="empty">No matches found</p>';
     return;
+  }
+
+  // Update score hero
+  const live = matches.filter(m => ['IN_PLAY','PAUSED','LIVE'].includes(m.status));
+  const finished = matches.filter(m => m.status === 'FINISHED')
+    .sort((a, b) => new Date(b.utcDate) - new Date(a.utcDate));
+  const heroMatch = live[0] || finished[0];
+  const heroEl = document.getElementById('score-hero');
+
+  if (heroMatch) {
+    const isLive = live.includes(heroMatch);
+    const home = heroMatch.homeTeam.name;
+    const away = heroMatch.awayTeam.name;
+    const hs = heroMatch.score.fullTime.home ?? 0;
+    const as_ = heroMatch.score.fullTime.away ?? 0;
+
+    heroEl.innerHTML = `
+      <div class="score-hero-label">${isLive ? 'Current Score' : 'Last Game Score'}</div>
+      <div class="score-hero-teams">
+        <div class="score-hero-team">
+          ${heroMatch.homeTeam.crest ? `<img class="score-hero-crest" src="${heroMatch.homeTeam.crest}" alt="">` : ''}
+        </div>
+        <div class="score-hero-center">
+          <div class="score-hero-number display-font">${hs} : ${as_}</div>
+          <div class="score-hero-names">${home} <span>vs</span> ${away}</div>
+        </div>
+        <div class="score-hero-team">
+          ${heroMatch.awayTeam.crest ? `<img class="score-hero-crest" src="${heroMatch.awayTeam.crest}" alt="">` : ''}
+        </div>
+      </div>
+    `;
   }
 
   const statusRank = (s) => {
