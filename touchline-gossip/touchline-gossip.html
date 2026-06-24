@@ -425,28 +425,56 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    gap: 20px;
+    flex-wrap: nowrap;
   }
   .score-hero-number img.star {
-    width: 0.45em;
+    width: 0.48em;
     height: auto;
-    display: inline-block;
+    flex-shrink: 0;
     -webkit-text-stroke: 0;
   }
+  .score-hero-label {
+    font-size: 1rem;
+    color: var(--pink-hot);
+    font-weight: 400;
+    margin-bottom: 4px;
+    opacity: 1;
+    letter-spacing: normal;
+    text-transform: none;
+  }
   .score-hero-names {
-    font-size: 0.9rem;
-    color: var(--pink-deep);
+    font-size: 1rem;
+    color: var(--pink-hot);
     font-weight: 600;
+    margin-bottom: 20px;
   }
   .score-hero-names span {
     opacity: 0.5;
     font-weight: 400;
     margin: 0 6px;
   }
+  .score-hero-team-name { display: none; }
   @media (max-width: 700px) {
     .score-hero-crest { width: 56px; height: 38px; border-radius: 5px; }
-    .score-hero-number { font-size: 52px; }
-    .score-hero-teams { gap: 16px; }
+    .score-hero-teams {
+      flex-direction: column;
+      gap: 12px;
+    }
+    .score-hero-team {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+    .score-hero-team-name {
+      display: block;
+      font-size: 0.85rem;
+      color: var(--pink-deep);
+      font-weight: 600;
+    }
+    .score-hero-names { display: none; }
+    .score-hero-number { font-size: 40px; }
   }
   .chat-input-row {
     display: flex;
@@ -493,8 +521,8 @@
   }
   .chat-send:hover { background: var(--pink-hot); transform: scale(1.05); }
   .chat-send:active { transform: scale(0.95); }
-  .chat-line.you .chat-name { color: #555 !important; }
-  .chat-line.you .chat-text { color: #333; }
+  .chat-line.you .chat-name { color: var(--pink-hot) !important; font-weight: 700; }
+  .chat-line.you .chat-text { color: var(--pink-hot); }
   .tracker-card-desc {
     text-align: center;
     color: var(--pink-hot);
@@ -878,7 +906,6 @@
   <div class="tracker-card">
     <h2><img src="star_2.png" alt="" class="star"> Hot Chat <img src="star_2.png" alt="" class="star"></h2>
     <p class="tracker-card-desc">This can be your comments too.</p>
-    <div class="commentary-match-label" id="match-label"></div>
     <div id="commentary">
       <div class="chat-skeleton" style="width: 70%;"></div>
       <div class="chat-skeleton" style="width: 55%; margin-left: auto; margin-right: auto;"></div>
@@ -982,17 +1009,19 @@ function renderMatches(data) {
     const as_ = heroMatch.score.fullTime.away ?? 0;
 
     heroEl.innerHTML = `
-      <div class="score-hero-label">${isLive ? 'Current score' : 'Last game score'}</div>
+      <div class="score-hero-label">${isLive ? 'Current game' : 'Last game'}</div>
+      <div class="score-hero-names">${home} <span>vs</span> ${away}</div>
       <div class="score-hero-teams">
         <div class="score-hero-team">
           ${heroMatch.homeTeam.crest ? `<img class="score-hero-crest" src="${heroMatch.homeTeam.crest}" alt="">` : ''}
+          <span class="score-hero-team-name">${home}</span>
         </div>
         <div class="score-hero-center">
           <div class="score-hero-number display-font"><img src="star_2.png" alt="" class="star">${hs} : ${as_}<img src="star_2.png" alt="" class="star"></div>
-          <div class="score-hero-names">${home} <span>vs</span> ${away}</div>
         </div>
         <div class="score-hero-team">
           ${heroMatch.awayTeam.crest ? `<img class="score-hero-crest" src="${heroMatch.awayTeam.crest}" alt="">` : ''}
+          <span class="score-hero-team-name">${away}</span>
         </div>
       </div>
     `;
