@@ -389,15 +389,6 @@
     padding: 28px 32px;
     text-align: center;
   }
-  .score-hero-label {
-    font-size: 0.8rem;
-    color: var(--pink-hot);
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    font-weight: 600;
-    margin-bottom: 20px;
-    opacity: 0.7;
-  }
   .score-hero-teams {
     display: flex;
     align-items: center;
@@ -414,14 +405,33 @@
     flex: 1;
     max-width: 280px;
   }
+  .score-hero-label {
+    font-size: 0.85rem;
+    color: var(--pink-hot);
+    text-transform: capitalize;
+    letter-spacing: 0.3px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    opacity: 0.7;
+  }
   .score-hero-number {
     font-size: 72px;
     line-height: 1;
     color: var(--pink-pale);
     -webkit-text-stroke: 10px var(--pink-deep);
     paint-order: stroke fill;
-    letter-spacing: 8px;
+    letter-spacing: 2px;
     margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .score-hero-number img.star {
+    width: 0.45em;
+    height: auto;
+    display: inline-block;
+    -webkit-text-stroke: 0;
   }
   .score-hero-names {
     font-size: 0.9rem;
@@ -443,6 +453,9 @@
     gap: 8px;
     margin-top: 16px;
     align-items: center;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
   }
   .chat-input {
     flex: 1;
@@ -969,13 +982,13 @@ function renderMatches(data) {
     const as_ = heroMatch.score.fullTime.away ?? 0;
 
     heroEl.innerHTML = `
-      <div class="score-hero-label">${isLive ? 'Current Score' : 'Last Game Score'}</div>
+      <div class="score-hero-label">${isLive ? 'Current score' : 'Last game score'}</div>
       <div class="score-hero-teams">
         <div class="score-hero-team">
           ${heroMatch.homeTeam.crest ? `<img class="score-hero-crest" src="${heroMatch.homeTeam.crest}" alt="">` : ''}
         </div>
         <div class="score-hero-center">
-          <div class="score-hero-number display-font">${hs} : ${as_}</div>
+          <div class="score-hero-number display-font"><img src="star_2.png" alt="" class="star">${hs} : ${as_}<img src="star_2.png" alt="" class="star"></div>
           <div class="score-hero-names">${home} <span>vs</span> ${away}</div>
         </div>
         <div class="score-hero-team">
