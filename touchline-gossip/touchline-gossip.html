@@ -235,6 +235,7 @@
 
   /* Responsive */
   @media (max-width: 800px) {
+    .tracker-card .match { padding: 12px 8px; }
     .lineup-section {
       grid-template-columns: 1fr;
       align-items: start;
@@ -393,7 +394,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 24px;
+    gap: clamp(20px, 2vw, 32px);
   }
   .score-hero-crest {
     width: 80px;
@@ -683,7 +684,7 @@
   .tracker-card .match {
     display: flex;
     flex-direction: column;
-    padding: 12px 8px;
+    padding: 12px 148px;
     border-bottom: 1px solid rgba(213,13,112,0.15);
     font-size: 0.95rem;
     color: var(--pink-hot);
