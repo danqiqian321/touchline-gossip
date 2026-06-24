@@ -437,6 +437,50 @@
     .score-hero-number { font-size: 52px; }
     .score-hero-teams { gap: 16px; }
   }
+  .chat-input-row {
+    display: flex;
+    gap: 8px;
+    margin-top: 16px;
+    align-items: center;
+  }
+  .chat-input {
+    flex: 1;
+    border: 1.5px solid rgba(233,30,140,0.25);
+    border-radius: 20px;
+    padding: 10px 16px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    color: var(--text-dark);
+    background: #fff;
+    outline: none;
+    transition: border-color 0.2s;
+    line-height: normal;
+  }
+  .chat-input:focus {
+    border-color: var(--pink-hot);
+  }
+  .chat-input::placeholder {
+    color: var(--pink-mid);
+  }
+  .chat-send {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background: var(--pink-deep);
+    color: #fff;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: background 0.15s, transform 0.1s;
+  }
+  .chat-send:hover { background: var(--pink-hot); transform: scale(1.05); }
+  .chat-send:active { transform: scale(0.95); }
+  .chat-line.you .chat-name { color: #555 !important; }
+  .chat-line.you .chat-text { color: #333; }
   .tracker-card-desc {
     text-align: center;
     color: var(--pink-hot);
@@ -826,6 +870,10 @@
       <div class="chat-skeleton" style="width: 55%; margin-left: auto; margin-right: auto;"></div>
       <div class="chat-skeleton" style="width: 80%;"></div>
       <div class="chat-skeleton" style="width: 60%; margin-left: auto; margin-right: auto;"></div>
+    </div>
+    <div class="chat-input-row">
+      <input type="text" id="chat-input" class="chat-input" placeholder="say something..." maxlength="120">
+      <button class="chat-send" onclick="sendUserMessage()">→</button>
     </div>
   </div>
 
@@ -1322,6 +1370,77 @@ const AVATAR_COLORS = {
 
 const KAYLA_DISPLAY_NAMES = ['Kayla', 'KK', 'Miquela', 'Riri', 'Coco'];
 
+async function sendUserMessage() {
+  const input = document.getElementById('chat-input');
+  const text = input.value.trim();
+  if (!text) return;
+
+  input.value = '';
+  input.disabled = true;
+
+  // Show user's message
+  appendChatLine({ name: 'you', line: text });
+
+  // Ask Claude to generate a reaction from Ashley + one of Kayla's personas
+  try {
+    const matchContext = window._lastMatchesData
+      ? (() => {
+          const matches = window._lastMatchesData.matches || [];
+          const live = matches.filter(m => ['IN_PLAY','PAUSED','LIVE'].includes(m.status));
+          const finished = matches.filter(m => m.status === 'FINISHED').sort((a,b) => new Date(b.utcDate)-new Date(a.utcDate));
+          const pick = live[0] || finished[0];
+          if (!pick) return 'No match currently.';
+          const h = pick.homeTeam.shortName || pick.homeTeam.name;
+          const a = pick.awayTeam.shortName || pick.awayTeam.name;
+          const hs = pick.score.fullTime.home ?? 0;
+          const as_ = pick.score.fullTime.away ?? 0;
+          return `${h} vs ${a}, score ${hs}-${as_}, status ${pick.status}.`;
+        })()
+      : 'No match data available.';
+
+    const res = await fetch('/api/commentary', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        matchSummary: `${matchContext} A friend just said in the group chat: "${text}"`,
+        gameState: 'reply',
+        lineCount: 2
+      })
+    });
+    const data = await res.json();
+    const raw = data.content?.[0]?.text;
+    if (raw) {
+      try {
+        const lines = JSON.parse(raw.replace(/```json|```/g, '').trim());
+        if (Array.isArray(lines)) {
+          // Stagger the two replies
+          setTimeout(() => {
+            const kaylaName = KAYLA_DISPLAY_NAMES[Math.floor(Math.random() * KAYLA_DISPLAY_NAMES.length)];
+            appendChatLine({ name: 'ashley', line: lines[0] || '' });
+            setTimeout(() => {
+              appendChatLine({ name: 'kayla', line: lines[1] || '', displayName: kaylaName });
+            }, 1200);
+          }, 800);
+        }
+      } catch (e) {
+        console.error('Reply parse error:', e);
+      }
+    }
+  } catch (e) {
+    console.error('Reply error:', e);
+  }
+
+  input.disabled = false;
+  input.focus();
+}
+
+// Send on Enter key
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('chat-input')?.addEventListener('keydown', e => {
+    if (e.key === 'Enter') sendUserMessage();
+  });
+});
+
 function appendChatLine(l) {
   const container = document.getElementById('commentary');
   if (!container) return;
@@ -1330,13 +1449,13 @@ function appendChatLine(l) {
     skeletons.forEach(s => s.remove());
   }
   const name = (l.name || '').toLowerCase();
-  const color = AVATAR_COLORS[name] || 'var(--pink-deep)';
-  let displayName = name.charAt(0).toUpperCase() + name.slice(1);
-  if (name === 'kayla') {
+  const color = name === 'you' ? '#888' : (AVATAR_COLORS[name] || 'var(--pink-deep)');
+  let displayName = l.displayName || (name === 'you' ? 'You' : name.charAt(0).toUpperCase() + name.slice(1));
+  if (name === 'kayla' && !l.displayName) {
     displayName = KAYLA_DISPLAY_NAMES[Math.floor(Math.random() * KAYLA_DISPLAY_NAMES.length)];
   }
   const html = `
-    <div class="chat-line">
+    <div class="chat-line ${name === 'you' ? 'you' : ''}">
       <span class="chat-name" style="color: ${color};">${displayName}</span>
       <span class="chat-text">${l.line || ''}</span>
     </div>

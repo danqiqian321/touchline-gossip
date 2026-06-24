@@ -63,18 +63,20 @@ const server = http.createServer((req, res) => {
     req.on('end', () => {
       const { matchSummary, gameState, lineCount = 5 } = JSON.parse(body);
 
+      const isReply = gameState === 'reply';
       const situationLine = gameState === 'live'
         ? "there is a game happening RIGHT NOW and you're watching it live"
         : gameState === 'finished'
         ? "the game just finished, no game is currently live — you're recapping with friends"
         : "no game is on right now, a match is coming up soon";
 
-      const payload = JSON.stringify({
-        model: 'claude-sonnet-4-6',
-        max_tokens: lineCount > 5 ? 500 : 300,
-        messages: [{
-          role: 'user',
-          content: `You're texting a group chat — ${situationLine}. Write ${lineCount} different one-liner reactions, each under 10 words, all lowercase, no ending punctuation, casual texting style with contractions.
+      const prompt = isReply
+        ? `Two friends (Ashley and Kayla) are in a group chat watching the World Cup. A friend just sent a message. Write ONE reply from Ashley (informed, factual, occasionally snarky) and ONE reply from Kayla (flirty, playful, fun). Each reply under 10 words, all lowercase, no ending punctuation, casual texting style.
+
+Context: ${matchSummary}
+
+Respond ONLY with a JSON array of exactly 2 strings — [ashley's reply, kayla's reply] — no markdown, no preamble.`
+        : `You're texting a group chat — ${situationLine}. Write ${lineCount} different one-liner reactions, each under 10 words, all lowercase, no ending punctuation, casual texting style with contractions.
 
 STRICT RULE: Only reference facts from the match update below — score, scorer names, who's leading, cards, subs, recent form. Do NOT mention the game minute or time — you're not a clock. Do NOT use outside knowledge. Never say "right now" or start with "this". Name the actual team or player.
 
@@ -83,7 +85,14 @@ TONE: ${gameState === 'live' ? 'excited, in-the-moment' : gameState === 'finishe
 Respond ONLY with a JSON array of ${lineCount} strings, no markdown, no preamble:
 ["line 1","line 2",...]
 
-Match update:\n${matchSummary}`
+Match update:\n${matchSummary}`;
+
+      const payload = JSON.stringify({
+        model: 'claude-sonnet-4-6',
+        max_tokens: isReply ? 150 : (lineCount > 5 ? 500 : 300),
+        messages: [{
+          role: 'user',
+          content: prompt
         }]
       });
 
