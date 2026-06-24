@@ -683,22 +683,8 @@
   .tracker-card .match {
     display: flex;
     flex-direction: column;
-    padding: 12px 148px;
-    border-bottom: none;
-    position: relative;
-  }
-  .tracker-card .match::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 148px;
-    right: 148px;
-    height: 1px;
-    background: rgba(213,13,112,0.15);
-  }
-  @media (max-width: 800px) {
-    .tracker-card .match::after { left: 8px; right: 8px; }
-  }
+    padding: 12px 100px;
+    border-bottom: 1px solid rgba(213,13,112,0.15);
     font-size: 0.95rem;
     color: var(--pink-hot);
   }
