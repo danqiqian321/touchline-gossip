@@ -280,7 +280,10 @@
     margin: 0 auto 70px;
     background: var(--pink-pale);
     border-radius: 18px;
-    padding: 28px 32px;
+    padding: 28px 84px;
+  }
+  @media (max-width: 800px) {
+    .tracker-card { padding: 28px 32px; }
   }
   .tracker-card:last-child {
     margin-bottom: 0;
@@ -386,7 +389,7 @@
     margin: 0 auto 70px;
     background: var(--pink-pale);
     border-radius: 18px;
-    padding: 28px 32px;
+    padding: 28px 84px;
     text-align: center;
   }
   .score-hero-teams {
@@ -683,13 +686,10 @@
   .tracker-card .match {
     display: flex;
     flex-direction: column;
-    padding: 12px 100px;
+    padding: 12px 8px;
     border-bottom: 1px solid rgba(213,13,112,0.15);
     font-size: 0.95rem;
     color: var(--pink-hot);
-  }
-  @media (max-width: 800px) {
-    .tracker-card .match { padding: 12px 8px; }
   }
   .tracker-card .match-row {
     display: flex;
@@ -1011,7 +1011,7 @@ function renderMatches(data) {
     const as_ = heroMatch.score.fullTime.away ?? 0;
 
     heroEl.innerHTML = `
-      <div class="score-hero-label">${isLive ? 'Current game' : 'Last game'}</div>
+      <div class="score-hero-label">${isLive ? 'Current Game' : 'Last Game'}</div>
       <div class="score-hero-names">${home} <span>vs</span> ${away}</div>
       <div class="score-hero-teams">
         <div class="score-hero-team">
